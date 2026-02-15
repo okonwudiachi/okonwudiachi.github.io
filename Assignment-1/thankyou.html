@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thank You - Bluebonnet Health Clinic</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="top" class="banner">
+  <div class="banner-left">
+    <img src="bluebonnet_health_logo.png" alt="Bluebonnet Health Clinic logo">
+    <div>
+      <h1>Bluebonnet Health Clinic</h1>
+      <div class="small">Patient Registration • Secure Intake Portal</div>
+    </div>
+  </div>
+
+  <div id="clientDate" aria-live="polite">
+    Today: <span id="dateText">Loading…</span>
+  </div>
+
+  <script>
+    // Inline JS allowed: show the web client's day + date
+    (function () {
+      var d = new Date();
+      var opts = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+      document.getElementById("dateText").textContent = d.toLocaleDateString(undefined, opts);
+    })();
+  </script>
+</div>
+
+<div id="middle">
+  <div class="step-nav" aria-label="Registration steps navigation">
+      <a href="index.html" class="">1) Patient Info</a>
+      <a href="step2-emergency.html" class="">2) Emergency Contact</a>
+      <a href="step3-insurance.html" class="">3) Insurance</a>
+      <a href="step4-guarantor.html" class="">4) Guarantor</a>
+      <a href="step5-medical.html" class="">5) Medical Info</a>
+      <a href="step6-consents.html" class="">6) Consents & Submit</a>
+      <a href="thankyou.html" style="float:right;">(Preview) Thank You Page</a>
+  </div>
+
+  <div class="card">
+<h2>Thank You</h2>
+<p>Thank you for your submission.</p>
+<p class="help">This page reuses the same banner and footer styling as the form.</p>
+
+<div class="actions">
+  <a class="btn primary" href="index.html">Start a New Submission</a>
+</div>
+  </div>
+</div>
+
+<div id="bottom">
+  <div class="footer-grid">
+    <div>
+      <div><strong>We'R'Docs Medical</strong></div>
+      <div class="small">PO BOX 18881</div>
+      <div class="small">Sugar Land, TX 77496</div>
+      <div class="small" style="margin-top:10px;">
+        Follow us:
+        <span class="footer-links">
+          <a href="#" title="Facebook">Facebook</a> •
+          <a href="#" title="X / Twitter">X</a> •
+          <a href="#" title="LinkedIn">LinkedIn</a>
+        </span>
+      </div>
+    </div>
+
+    <!-- Clickable element: button (no JS required) -->
+    <form action="mailto:contact@werdocs.example" id="contactForm">
+      <button class="primary" type="submit">Contact Us</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
