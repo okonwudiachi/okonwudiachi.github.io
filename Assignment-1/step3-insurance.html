@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patient Registration - Step 3</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="top" class="banner">
+  <div class="banner-left">
+    <img src="bluebonnet_health_logo.png" alt="Bluebonnet Health Clinic logo">
+    <div>
+      <h1>Bluebonnet Health Clinic</h1>
+      <div class="small">Patient Registration • Secure Intake Portal</div>
+    </div>
+  </div>
+
+  <div id="clientDate" aria-live="polite">
+    Today: <span id="dateText">Loading…</span>
+  </div>
+
+  <script>
+    // Inline JS allowed: show the web client's day + date
+    (function () {
+      var d = new Date();
+      var opts = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+      document.getElementById("dateText").textContent = d.toLocaleDateString(undefined, opts);
+    })();
+  </script>
+</div>
+
+<div id="middle">
+  <div class="step-nav" aria-label="Registration steps navigation">
+      <a href="index.html" class="">1) Patient Info</a>
+      <a href="step2-emergency.html" class="">2) Emergency Contact</a>
+      <a href="step3-insurance.html" class="active">3) Insurance</a>
+      <a href="step4-guarantor.html" class="">4) Guarantor</a>
+      <a href="step5-medical.html" class="">5) Medical Info</a>
+      <a href="step6-consents.html" class="">6) Consents & Submit</a>
+      <a href="thankyou.html" style="float:right;">(Preview) Thank You Page</a>
+  </div>
+
+  <div class="card">
+<h2>Step 3 — Insurance</h2>
+<p class="help">Primary and secondary insurance fields (static layout in this no-JS prototype).</p>
+
+<form action="step4-guarantor.html">
+  <fieldset>
+    <legend>Primary Insurance</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="ins_provider">Insurance Provider</label><br>
+          <input type="text" id="ins_provider" name="primary_ins_provider" maxlength="60" placeholder="e.g., Blue Cross Blue Shield">
+        </td>
+        <td>
+          <label for="member_id">Member ID</label><br>
+          <input type="text" id="member_id" name="primary_member_id" maxlength="30">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="group_no">Group Number</label><br>
+          <input type="text" id="group_no" name="primary_group_number" maxlength="30">
+        </td>
+        <td>
+          <label for="plan_type">Plan Type</label><br>
+          <select id="plan_type" name="primary_plan_type">
+            <option value="" selected>Select…</option>
+            <optgroup label="Commercial">
+              <option value="HMO">HMO</option>
+              <option value="PPO">PPO</option>
+              <option value="EPO">EPO</option>
+            </optgroup>
+            <optgroup label="Government">
+              <option value="Medicare">Medicare</option>
+              <option value="Medicaid">Medicaid</option>
+              <option value="CHIP">CHIP</option>
+            </optgroup>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <label for="card_notes">Insurance Card Notes (optional)</label><br>
+          <textarea id="card_notes" name="primary_card_notes" rows="3" cols="50"
+                    placeholder="Anything we should know about your coverage?"></textarea>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Secondary Insurance (Optional)</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="sec_provider">Provider</label><br>
+          <input type="text" id="sec_provider" name="secondary_ins_provider" maxlength="60">
+        </td>
+        <td>
+          <label for="sec_member">Member ID</label><br>
+          <input type="text" id="sec_member" name="secondary_member_id" maxlength="30">
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <div class="actions">
+    <a class="btn secondary" href="step2-emergency.html">← Back</a>
+    <button type="submit" class="primary">Save & Continue →</button>
+    <button type="reset" class="danger">CLEAR AND START OVER</button>
+  </div>
+</form>
+  </div>
+</div>
+
+<div id="bottom">
+  <div class="footer-grid">
+    <div>
+      <div><strong>We'R'Docs Medical</strong></div>
+      <div class="small">PO BOX 18881</div>
+      <div class="small">Sugar Land, TX 77496</div>
+      <div class="small" style="margin-top:10px;">
+        Follow us:
+        <span class="footer-links">
+          <a href="#" title="Facebook">Facebook</a> •
+          <a href="#" title="X / Twitter">X</a> •
+          <a href="#" title="LinkedIn">LinkedIn</a>
+        </span>
+      </div>
+    </div>
+
+    <!-- Clickable element: button (no JS required) -->
+    <form action="mailto:contact@werdocs.example" id="contactForm">
+      <button class="primary" type="submit">Contact Us</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

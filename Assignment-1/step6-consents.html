@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patient Registration - Step 6</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="top" class="banner">
+  <div class="banner-left">
+    <img src="bluebonnet_health_logo.png" alt="Bluebonnet Health Clinic logo">
+    <div>
+      <h1>Bluebonnet Health Clinic</h1>
+      <div class="small">Patient Registration • Secure Intake Portal</div>
+    </div>
+  </div>
+
+  <div id="clientDate" aria-live="polite">
+    Today: <span id="dateText">Loading…</span>
+  </div>
+
+  <script>
+    // Inline JS allowed: show the web client's day + date
+    (function () {
+      var d = new Date();
+      var opts = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+      document.getElementById("dateText").textContent = d.toLocaleDateString(undefined, opts);
+    })();
+  </script>
+</div>
+
+<div id="middle">
+  <div class="step-nav" aria-label="Registration steps navigation">
+      <a href="index.html" class="">1) Patient Info</a>
+      <a href="step2-emergency.html" class="">2) Emergency Contact</a>
+      <a href="step3-insurance.html" class="">3) Insurance</a>
+      <a href="step4-guarantor.html" class="">4) Guarantor</a>
+      <a href="step5-medical.html" class="">5) Medical Info</a>
+      <a href="step6-consents.html" class="active">6) Consents & Submit</a>
+      <a href="thankyou.html" style="float:right;">(Preview) Thank You Page</a>
+  </div>
+
+  <div class="card">
+<h2>Step 6 — Consents & Signature</h2>
+<p class="help">Final acknowledgements. When you submit, you will be sent to <code>thankyou.html</code>.</p>
+
+<form action="thankyou.html">
+  <fieldset>
+    <legend>Consent & Acknowledgements</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label><input type="checkbox" name="consent_to_treat" value="1" required> I consent to treatment.</label><br>
+          <label><input type="checkbox" name="financial_policy_ack" value="1" required> I acknowledge the financial policy.</label><br>
+          <label><input type="checkbox" name="hipaa_npp_ack" value="1" required> I acknowledge receipt of the HIPAA Notice of Privacy Practices.</label><br>
+          <label><input type="checkbox" name="communication_consent" value="1"> I consent to electronic communication (email/text).</label>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Signature</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="sig_name">Printed Name</label><br>
+          <input type="text" id="sig_name" name="signature_print_name" maxlength="60" required>
+        </td>
+        <td>
+          <label for="sig_date">Signature Date (MM/DD/YYYY)</label><br>
+          <input type="text" id="sig_date" name="signature_date" placeholder="02/09/2026"
+                 pattern="^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/(19|20)\d\d$" required>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <label for="signature">Signature (type your name)</label><br>
+          <input type="text" id="signature" name="signature" maxlength="80" placeholder="Type full name as signature" required>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <div class="actions">
+    <a class="btn secondary" href="step5-medical.html">← Back</a>
+    <button type="submit" class="primary">Submit Registration</button>
+    <button type="reset" class="danger">CLEAR AND START OVER</button>
+  </div>
+</form>
+  </div>
+</div>
+
+<div id="bottom">
+  <div class="footer-grid">
+    <div>
+      <div><strong>We'R'Docs Medical</strong></div>
+      <div class="small">PO BOX 18881</div>
+      <div class="small">Sugar Land, TX 77496</div>
+      <div class="small" style="margin-top:10px;">
+        Follow us:
+        <span class="footer-links">
+          <a href="#" title="Facebook">Facebook</a> •
+          <a href="#" title="X / Twitter">X</a> •
+          <a href="#" title="LinkedIn">LinkedIn</a>
+        </span>
+      </div>
+    </div>
+
+    <!-- Clickable element: button (no JS required) -->
+    <form action="mailto:contact@werdocs.example" id="contactForm">
+      <button class="primary" type="submit">Contact Us</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

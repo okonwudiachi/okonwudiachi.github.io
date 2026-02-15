@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patient Registration - Step 2</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="top" class="banner">
+  <div class="banner-left">
+    <img src="bluebonnet_health_logo.png" alt="Bluebonnet Health Clinic logo">
+    <div>
+      <h1>Bluebonnet Health Clinic</h1>
+      <div class="small">Patient Registration • Secure Intake Portal</div>
+    </div>
+  </div>
+
+  <div id="clientDate" aria-live="polite">
+    Today: <span id="dateText">Loading…</span>
+  </div>
+
+  <script>
+    // Inline JS allowed: show the web client's day + date
+    (function () {
+      var d = new Date();
+      var opts = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+      document.getElementById("dateText").textContent = d.toLocaleDateString(undefined, opts);
+    })();
+  </script>
+</div>
+
+<div id="middle">
+  <div class="step-nav" aria-label="Registration steps navigation">
+      <a href="index.html" class="">1) Patient Info</a>
+      <a href="step2-emergency.html" class="active">2) Emergency Contact</a>
+      <a href="step3-insurance.html" class="">3) Insurance</a>
+      <a href="step4-guarantor.html" class="">4) Guarantor</a>
+      <a href="step5-medical.html" class="">5) Medical Info</a>
+      <a href="step6-consents.html" class="">6) Consents & Submit</a>
+      <a href="thankyou.html" style="float:right;">(Preview) Thank You Page</a>
+  </div>
+
+  <div class="card">
+<h2>Step 2 — Emergency Contact</h2>
+<p class="help">This page shows the emergency-contact section from the wireframe.</p>
+
+<form action="step3-insurance.html">
+  <fieldset>
+    <legend>Emergency Contact</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="em_name">Full Name</label><br>
+          <input type="text" id="em_name" name="emergency_name" maxlength="60" required>
+        </td>
+        <td>
+          <label for="em_rel">Relationship</label><br>
+          <input type="text" id="em_rel" name="emergency_relationship" maxlength="40" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="em_phone">Phone</label><br>
+          <input type="tel" id="em_phone" name="emergency_phone" placeholder="(555) 555-5555" required>
+        </td>
+        <td>
+          <label for="em_phone2">Alternate Phone (optional)</label><br>
+          <input type="tel" id="em_phone2" name="emergency_phone_alt" placeholder="(555) 555-5555">
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <div class="actions">
+    <a class="btn secondary" href="index.html">← Back</a>
+    <button type="submit" class="primary">Save & Continue →</button>
+    <button type="reset" class="danger">CLEAR AND START OVER</button>
+  </div>
+</form>
+  </div>
+</div>
+
+<div id="bottom">
+  <div class="footer-grid">
+    <div>
+      <div><strong>We'R'Docs Medical</strong></div>
+      <div class="small">PO BOX 18881</div>
+      <div class="small">Sugar Land, TX 77496</div>
+      <div class="small" style="margin-top:10px;">
+        Follow us:
+        <span class="footer-links">
+          <a href="#" title="Facebook">Facebook</a> •
+          <a href="#" title="X / Twitter">X</a> •
+          <a href="#" title="LinkedIn">LinkedIn</a>
+        </span>
+      </div>
+    </div>
+
+    <!-- Clickable element: button (no JS required) -->
+    <form action="mailto:contact@werdocs.example" id="contactForm">
+      <button class="primary" type="submit">Contact Us</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
