@@ -201,15 +201,14 @@ input[name="first_name"] { border-color: #86b7fe; }
   align-items: start;
 }
 
-.footer-links a:link, .footer-links a:visited { color: #b9ddff; }
+/*.footer-links , .footer-links a:visited { color: #b9ddff; }*/
 .footer-links a:hover { text-decoration: underline; }
 
-.footer-links img {
+.footer-links a:link {
   width: 28px;
   height: 28px;
   display: inline-block;
   border-radius: 6px;
-  background: rgba(255,255,255,0.12);
   padding: 4px;
 }
 
