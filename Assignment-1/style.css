@@ -9,7 +9,7 @@ body {
   padding: 0;
   background: #f4f7fb;
   font-family: "Segoe UI", Arial, sans-serif;
-  color: #1f2a37;
+  color: #1f2a37;  
 }
 
 h1, h2, h3 {
@@ -208,9 +208,25 @@ input[name="first_name"] { border-color: #86b7fe; }
   width: 28px;
   height: 28px;
   display: inline-block;
-  border-radius: 6px;
-  padding: 2px;
+  border-radius: 6px;  
 }
 
-.small { font-size: 1rem; opacity: 0.95; }
+.small { 
+  font-size: 1rem; 
+  opacity: 0.95; 
+  display: flex;
+  align-items: center;
+  gap:10px; 
+}
 
+.include-frame {
+  width: 100%;
+  border: none;
+  display: block;
+}
+
+#forThanks{
+  position:fixed;
+  bottom: 0;
+  left: 0;
+}

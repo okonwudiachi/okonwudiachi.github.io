@@ -7,7 +7,7 @@
   <link href="style.css" rel="stylesheet">
 </head>
 <body>
-
+<!--
 <div id="top" class="banner">
   <div class="banner-left">
     <img src="bluebonnet_health_logo.png" alt="Bluebonnet Health Clinic logo">
@@ -29,7 +29,10 @@
       document.getElementById("dateText").textContent = d.toLocaleDateString(undefined, opts);
     })();
   </script>
-</div>
+</div> -->
+
+<!-- Common header -->
+  <iframe class="include-frame" src="header.html" title="Header" width="100%" height="103px" frameborder="0" scrolling="no"></iframe>
 
 <div id="middle">
   <div class="step-nav" aria-label="Registration steps navigation">
@@ -290,14 +293,16 @@
   </div>
 </div>
 
+<!--
 <div id="bottom">
   <div class="footer-grid">
     <div>
-      <div><strong>Bluebonnet Health</strong></div>
+      <div style="font-weight:900; font-size:1.05rem;"><strong>Bluebonnet Health Clinic</strong></div>
       <div class="small">PO BOX 18881</div>
       <div class="small">2478 Cypress Meadow Dr, Sugar Land, TX 77002</div>
       <div class="small" style="margin-top:10px;">
-        Follow us:
+        <div>Follow us:</div>
+        <div>
         <span class="footer-links">
           <a href="https://facebook.com" target="_blank" rel="noopener" title="Facebook">
             <img src="icon_facebook.png" alt="Facebook icon">
@@ -309,15 +314,16 @@
             <img src="InBug-White.png" alt="LinkedIn icon">
           </a>
         </span>
+        </div>
       </div>
     </div>
 
-    <!-- Clickable element: button (no JS required) -->
+    Clickable element: button (no JS required)
     <form action="mailto:contact@werdocs.example" id="contactForm">
       <button class="primary" type="submit">Contact Us</button>
     </form>
   </div>
-</div>
-
+</div> -->
+<iframe class="include-frame" src="footer.html" title="Footer" width="100%" height="167px" frameborder="0" scrolling="no"></iframe>
 </body>
 </html>
