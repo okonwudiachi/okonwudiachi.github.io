@@ -38,7 +38,7 @@ Description: A proposed patient intake form for a healthcare facility.
   Data will not carry between pages until server-side processing or JavaScript is added later.
 </p>
 
-<form action="step6-consents.html">
+<form action="step6-consents.html" method="post">
   <fieldset>
     <legend>Account Setup (for patient portal access)</legend>
     <table class="form-table">
@@ -271,9 +271,9 @@ Description: A proposed patient intake form for a healthcare facility.
   </fieldset>
 
   <div class="actions">
-    <a class="btn secondary" href="step2-emergency.html">Save & Continue →</a>
+    <button class="btn secondary" type="submit" formaction="step2-emergency.html">Save & Continue →</button>
     <button type="reset" class="danger">CLEAR AND START OVER</button>
-    <button type="submit" class="primary">Submit Now (Optional)</button>
+    <button type="submit" class="primary" formaction="step6-consents.html">Submit Now (Optional)</button>
   </div>
 </form>
   </div>
