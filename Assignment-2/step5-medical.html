@@ -1,0 +1,95 @@
+<!doctype html>
+<!--
+Program name: Bluebonnet Health Clinic - Patient Registration.html
+Author: Onyemaechi Onwudiachi
+Date created: 2/09/2026
+Date last edited: 3/11/2026
+Version: 16
+Description: Step 5 — Medical Information
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Patient Registration - Step 5</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<iframe class="include-frame" src="header.html" title="Header" width="100%" height="103px" frameborder="0" scrolling="no"></iframe>
+
+<div id="middle">
+  <div class="step-nav" aria-label="Registration steps navigation">
+      <a href="index.html" class="">1) Patient Info</a>
+      <a href="step2-emergency.html" class="">2) Emergency Contact</a>
+      <a href="step3-insurance.html" class="">3) Insurance</a>
+      <a href="step4-guarantor.html" class="">4) Guarantor</a>
+      <a href="step5-medical.html" class="active">5) Medical Info</a>
+      <a href="step6-consents.html" class="">6) Consents &amp; Submit</a>
+      <a href="thankyou.html" style="float:right;">(Preview) Thank You Page</a>
+  </div>
+
+  <div class="card">
+<h2>Step 5 &mdash; Medical Information</h2>
+<p class="help">Please provide a brief medical snapshot to help our care team prepare for your visit.</p>
+
+<form action="step6-consents.html" id="step5-form" novalidate>
+  <fieldset>
+    <legend>Medical Profile</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="meds">Current Medications</label><br>
+          <textarea id="meds" name="current_medications" rows="3" cols="50"
+                    placeholder="List medications and dosages (if known)…"
+                    title="List all prescription and over-the-counter medications you currently take, including dosage and frequency if known. Separate each medication on a new line."></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="allergy_detail">Allergies &amp; Reactions</label><br>
+          <textarea id="allergy_detail" name="allergies" rows="3" cols="50"
+                    placeholder="List allergies and reactions…"
+                    title="List all known allergies (medications, foods, latex, environmental, etc.) and describe your reaction to each one. Example: Penicillin — rash and swelling."></textarea>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Primary Care Provider</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="pcp_name">PCP Name</label><br>
+          <input type="text" id="pcp_name" name="pcp_name"
+                 maxlength="60"
+                 title="Enter the full name of your primary care physician or provider (e.g., Dr. Jane Smith). Leave blank if you do not have one.">
+        </td>
+        <td>
+          <label for="pcp_phone">PCP Phone</label><br>
+          <input type="tel" id="pcp_phone" name="pcp_phone"
+                 placeholder="(555) 555-5555"
+                 title="Enter your primary care provider's office phone number so we can coordinate care if needed.">
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <div class="actions">
+    <a class="btn secondary" href="step4-guarantor.html"
+       title="Go back to the Guarantor step.">&larr; Back</a>
+    <button type="submit" class="primary"
+            title="Save medical information and proceed to Consents &amp; Signature.">Save &amp; Continue &rarr;</button>
+    <button type="reset" class="danger"
+            title="Clear all fields on this page.">CLEAR AND START OVER</button>
+  </div>
+</form>
+  </div>
+</div>
+<iframe class="include-frame" src="footer.html" title="Footer" width="100%" height="167px" frameborder="0" scrolling="no"></iframe>
+<script src="states.js"></script>
+<script src="bluebonnet.js"></script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+/* Bluebonnet Health Clinic - Patient Registration (CSS)
+   - Author: Onyemaechi Onwudiachi
+   - Date Created: 2/09/2026
+   - Date last edited: 2/27/2026
+*/
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #f4f7fb;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #1f2a37;  
+}
+
+h1, h2, h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  color: #123a5c;
+  margin: 0.2rem 0 0.6rem 0;
+}
+
+.clinic-name {
+  color: white;
+}
+
+p, li, td, label {
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
+a:link { color: #0b63ce; text-decoration: none; }
+a:visited { color: #6a1bb0; }
+a:hover { text-decoration: underline; }
+
+#top {
+  background: #0f3d5e;
+  color: #ffffff;
+  padding: 14px 18px;
+  border-bottom: 4px solid #1c6ea4;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.banner img {
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 6px;
+}
+
+#clientDate {
+  font-size: 0.95rem;
+  background: rgba(255,255,255,0.12);
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+#middle {
+  padding: 18px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #d7e2f1;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 18px rgba(15, 61, 94, 0.08);
+}
+
+.step-nav {
+  margin: 10px 0 16px 0;
+  padding: 10px 12px;
+  background: #eef5ff;
+  border: 1px solid #d7e2f1;
+  border-radius: 12px;
+}
+
+.step-nav a {
+  display: inline-block;
+  margin: 4px 10px 4px 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #cfe0f7;
+}
+
+.step-nav a.active {
+  background: #123a5c;
+  color: #ffffff;
+  border-color: #123a5c;
+}
+
+fieldset {
+  border: 1px solid #cfe0f7;
+  border-radius: 12px;
+  padding: 12px 14px 14px 14px;
+  margin: 14px 0;
+  background: #fbfdff;
+}
+
+legend {
+  padding: 0 8px;
+  font-weight: 700;
+  color: #123a5c;
+}
+
+table.form-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.form-table td {
+  padding: 8px 10px;
+  vertical-align: top;
+}
+
+label {
+  font-weight: 600;
+  color: #1b3550;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+  width: 100%;
+  max-width: 460px;
+  padding: 8px 10px;
+  border: 1px solid #b9cbe6;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+textarea { max-width: 760px; }
+input[type="range"] { width: 260px; }
+
+.help { font-size: 0.86rem; color: #4b5563; margin-top: 4px; }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+button, .btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+button.primary, .btn.primary { background: #1c6ea4; color: #ffffff; }
+button.secondary, .btn.secondary { background: #e7eef8; color: #123a5c; border: 1px solid #cfe0f7; }
+button.danger { background: #b42318; color: #ffffff; }
+
+.note {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: #7c2d12;
+}
+
+/* Name-based selector example */
+input[name="first_name"] { border-color: #86b7fe; }
+
+/* ID selector example */
+#ssn { letter-spacing: 0.06em; }
+
+#bottom {
+  margin-top: 24px;
+  background: #0b2a40;
+  color: #e6f0fb;
+  padding: 18px;
+}
+
+.footer-grid {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: start;
+}
+
+.footer-links a:link, .footer-links a:visited { color: #b9ddff; }
+.footer-links a:hover { text-decoration: underline; }
+
+.footer-links img {
+  width: 28px;
+  height: 28px;
+  display: inline-block;
+  border-radius: 6px;  
+}
+
+.small { 
+  font-size: 1rem; 
+  opacity: 0.95; 
+  display: flex;
+  align-items: center;
+  gap:10px; 
+}
+
+.include-frame {
+  width: 100%;
+  border: none;
+  display: block;
+}
+
+#forThanks{
+  position:fixed;
+  bottom: 0;
+  left: 0;
+}
+
+/* ── v16 Additions ────────────────────────────────────── */
+
+/* Review button */
+.btn.review-btn {
+  background: #2d6a4f;
+  color: #ffffff;
+  border: none;
+}
+.btn.review-btn:hover { background: #1b4332; }
+
+/* Inline field error messages */
+.field-error {
+  color: #b42318;
+  font-size: 0.82rem;
+  margin-top: 3px;
+  min-height: 1em;
+}
+.input-error { border-color: #b42318 !important; }
+
+/* Range slider — prettier track */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  background: linear-gradient(to right, #1c6ea4 50%, #d7e2f1 50%);
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #1c6ea4;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,.25);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #1c6ea4;
+  cursor: pointer;
+  border: 2px solid #fff;
+}

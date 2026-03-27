@@ -1,0 +1,43 @@
+<!doctype html>
+<!--
+Program name: Bluebonnet Health Clinic - Patient Registration.html
+Author: Onyemaechi Onwudiachi
+Date created: 2/09/2026
+Date last edited: 2/27/2026
+Version: 15
+Description: A proposed patient intake form for a healthcare facility.
+             This version is only a markup with minimal functionality (Javascript)
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Bluebonnet Health Header</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div id="top" class="banner">
+  <div class="banner-left">
+    <img src="bluebonnet_health_logo.png" alt="Bluebonnet Health Clinic logo">
+    <div>
+      <h1 class="clinic-name">Bluebonnet Health Clinic</h1>
+      <div class="small">Patient Registration • Secure Intake Portal</div>
+    </div>
+  </div>
+
+  <div id="clientDate" aria-live="polite">
+    Today: <span id="dateText">Loading…</span>
+  </div>
+
+  <script>
+    // Inline JS allowed: show the web client's day + date
+    (function () {
+      var d = new Date();
+      var opts = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+      document.getElementById("dateText").textContent = d.toLocaleDateString(undefined, opts);
+    })();
+  </script>
+</div>
+</body>
+</html>

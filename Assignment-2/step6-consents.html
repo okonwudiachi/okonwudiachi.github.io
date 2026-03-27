@@ -1,0 +1,106 @@
+<!doctype html>
+<!--
+Program name: Bluebonnet Health Clinic - Patient Registration.html
+Author: Onyemaechi Onwudiachi
+Date created: 2/09/2026
+Date last edited: 3/11/2026
+Version: 16
+Description: Step 6 — Consents & Signature
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Patient Registration - Step 6</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<iframe class="include-frame" src="header.html" title="Header" width="100%" height="103px" frameborder="0" scrolling="no"></iframe>
+
+<div id="middle">
+  <div class="step-nav" aria-label="Registration steps navigation">
+      <a href="index.html" class="">1) Patient Info</a>
+      <a href="step2-emergency.html" class="">2) Emergency Contact</a>
+      <a href="step3-insurance.html" class="">3) Insurance</a>
+      <a href="step4-guarantor.html" class="">4) Guarantor</a>
+      <a href="step5-medical.html" class="">5) Medical Info</a>
+      <a href="step6-consents.html" class="active">6) Consents &amp; Submit</a>
+      <a href="thankyou.html" style="float:right;">(Preview) Thank You Page</a>
+  </div>
+
+  <div class="card">
+<h2>Step 6 &mdash; Consents &amp; Signature</h2>
+<p class="help">Please review and accept the required acknowledgements before submitting. When you submit, you will be sent to the confirmation page.</p>
+
+<form action="thankyou.html" id="step6-form" novalidate>
+  <fieldset>
+    <legend>Consent &amp; Acknowledgements</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label title="Required: You must consent to allow our clinical staff to examine and treat you during this visit.">
+            <input type="checkbox" name="consent_to_treat" value="1" required> I consent to treatment.
+          </label><br>
+          <label title="Required: You acknowledge that you have read and agree to the clinic's financial policy, including billing and payment responsibilities.">
+            <input type="checkbox" name="financial_policy_ack" value="1" required> I acknowledge the financial policy.
+          </label><br>
+          <label title="Required: You acknowledge that you have received or been offered a copy of our HIPAA Notice of Privacy Practices, which describes how your medical information may be used.">
+            <input type="checkbox" name="hipaa_npp_ack" value="1" required> I acknowledge receipt of the HIPAA Notice of Privacy Practices.
+          </label><br>
+          <label title="Optional: You authorize the clinic to contact you via email or text message for appointment reminders, health updates, and billing communications.">
+            <input type="checkbox" name="communication_consent" value="1"> I consent to electronic communication (email/text).
+          </label>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Signature</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="sig_name">Printed Name</label><br>
+          <input type="text" id="sig_name" name="signature_print_name"
+                 maxlength="60"
+                 title="Print your full legal name as it appears on your government-issued ID."
+                 required>
+        </td>
+        <td>
+          <label for="sig_date">Signature Date (MM/DD/YYYY)</label><br>
+          <input type="text" id="sig_date" name="signature_date"
+                 title="Enter today's date."
+                 required>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <label for="signature">Signature (type your name)</label><br>
+          <input type="text" id="signature" name="signature"
+                 maxlength="80" placeholder="Type full name as signature"
+                 title="Type your full legal name in this field to serve as your electronic signature, indicating that all information you have provided is accurate and complete."
+                 required>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <div class="actions">
+    <a class="btn secondary" href="step5-medical.html"
+       title="Go back to the Medical Information step.">&larr; Back</a>
+    <button type="submit" class="primary"
+            title="Submit your completed registration. You will be redirected to the confirmation page.">Submit Registration</button>
+    <button type="reset" class="danger"
+            title="Clear all fields on this page.">CLEAR AND START OVER</button>
+  </div>
+</form>
+  </div>
+</div>
+
+<iframe class="include-frame" src="footer.html" title="Footer" width="100%" height="167px" frameborder="0" scrolling="no"></iframe>
+<script src="states.js"></script>
+<script src="bluebonnet.js"></script>
+</body>
+</html>
