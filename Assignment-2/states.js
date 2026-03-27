@@ -4,6 +4,9 @@
  * Requirement: State dropdown as an external include file (req 3j)
  * Usage: <script src="states.js"></script>
  *        then call: populateStateSelect('elementId')
+ * Author: Onyemaechi Onwudiachi
+ * Created: 03/11/2026
+ * Last Edited: 03/27/2026
  */
 
 const US_STATES = [

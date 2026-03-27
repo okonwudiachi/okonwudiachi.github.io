@@ -1,0 +1,117 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" version="29.6.6">
+  <diagram id="bbhc_ns_001" name="Bluebonnet Form N-S Diagram">
+    <mxGraphModel dx="1113" dy="556" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="2200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1c4587;fillColor=#d9e8fb;fontStyle=1;fontSize=18;align=center;verticalAlign=middle;" value="Bluebonnet Health Clinic Registration Form&#xa;Nassi-Shneiderman Style Flow" vertex="1">
+          <mxGeometry height="60" width="610" x="120" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="block_1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f8f9fa;align=left;spacingLeft=10;spacingTop=8;fontSize=14;" value="START&#xa;Open step page&#xa;Load shared script and saved session data" vertex="1">
+          <mxGeometry height="90" width="610" x="120" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="block_2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#fff2cc;align=left;spacingLeft=10;spacingTop=8;fontSize=14;" value="INITIALIZE PAGE&#xa;- Populate state list&#xa;- Restore saved answers into fields&#xa;- Attach input, blur, and change listeners&#xa;- Activate date helpers, slider display, password checks, and review button behavior" vertex="1">
+          <mxGeometry height="130" width="610" x="120" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="block_3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#e2f0d9;align=left;spacingLeft=10;spacingTop=8;fontSize=14;" value="USER ENTERS OR CHANGES DATA&#xa;For each required control:&#xa;- If blank, show Required / error state&#xa;- If invalid, show validation message&#xa;- If valid, mark field as compliant" vertex="1">
+          <mxGeometry height="120" width="610" x="120" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="decision_1" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f4cccc;fontSize=14;fontStyle=1;" value="REVIEW BUTTON CLICKED?" vertex="1">
+          <mxGeometry height="100" width="230" x="310" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="yes_review" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;" value="Yes" vertex="1">
+          <mxGeometry height="20" width="40" x="510" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="no_review" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;" value="No" vertex="1">
+          <mxGeometry height="20" width="40" x="385" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="block_4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#d9ead3;align=left;spacingLeft=10;spacingTop=8;fontSize=14;" value="BUILD REVIEW POPUP&#xa;- Collect current form data&#xa;- Merge with session data from earlier steps&#xa;- Show each field with value and validation status&#xa;- Require acknowledgement before returning to the page" vertex="1">
+          <mxGeometry height="120" width="360" x="480" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="decision_2" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f4cccc;fontSize=14;fontStyle=1;" value="NEXT OR SUBMIT BUTTON CLICKED?" vertex="1">
+          <mxGeometry height="110" width="250" x="300" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="block_5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#fff2cc;align=left;spacingLeft=10;spacingTop=8;fontSize=14;" value="VALIDATE CURRENT STEP&#xa;- Check required fields&#xa;- Run format rules (name, email, phone, DOB, SSN, ZIP, password, etc.)&#xa;- Stop navigation if errors exist" vertex="1">
+          <mxGeometry height="120" width="610" x="120" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="decision_3" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f4cccc;fontSize=14;fontStyle=1;" value="CURRENT STEP VALID?" vertex="1">
+          <mxGeometry height="110" width="240" x="305" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="block_6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#fce5cd;align=left;spacingLeft=10;spacingTop=8;fontSize=14;" value="NO&#xa;Display errors, keep user on same page, allow corrections" vertex="1">
+          <mxGeometry height="90" width="260" x="120" y="1200" as="geometry" />
+        </mxCell>
+        <mxCell id="block_7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#d9ead3;align=left;spacingLeft=10;spacingTop=8;fontSize=14;" value="YES&#xa;Save current step data into session storage" vertex="1">
+          <mxGeometry height="90" width="260" x="470" y="1200" as="geometry" />
+        </mxCell>
+        <mxCell id="decision_4" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f4cccc;fontSize=14;fontStyle=1;" value="IS THIS THE FINAL CONSENT STEP?" vertex="1">
+          <mxGeometry height="110" width="250" x="300" y="1320" as="geometry" />
+        </mxCell>
+        <mxCell id="block_8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#dae8fc;align=left;spacingLeft=10;spacingTop=8;fontSize=14;" value="NO&#xa;Navigate to next HTML step page and repopulate values on load" vertex="1">
+          <mxGeometry height="90" width="260" x="120" y="1460" as="geometry" />
+        </mxCell>
+        <mxCell id="block_9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#d9ead3;align=left;spacingLeft=10;spacingTop=8;fontSize=14;" value="YES&#xa;Go to thank-you page&#xa;Display completion message&#xa;(Static front end; no live backend submission yet)" vertex="1">
+          <mxGeometry height="100" width="260" x="470" y="1460" as="geometry" />
+        </mxCell>
+        <mxCell id="block_10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f8f9fa;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;" value="END" vertex="1">
+          <mxGeometry height="60" width="210" x="320" y="1590" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_1" edge="1" parent="1" source="title_1" style="endArrow=block;html=1;rounded=0;" target="block_1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_2" edge="1" parent="1" source="block_1" style="endArrow=block;html=1;rounded=0;" target="block_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_3" edge="1" parent="1" source="block_2" style="endArrow=block;html=1;rounded=0;" target="block_3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_4" edge="1" parent="1" source="block_3" style="endArrow=block;html=1;rounded=0;" target="decision_1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_5" edge="1" parent="1" source="decision_1" style="endArrow=block;html=1;rounded=0;" target="block_4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_6" edge="1" parent="1" source="block_4" style="endArrow=block;html=1;rounded=0;" target="decision_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_7" edge="1" parent="1" source="decision_1" style="endArrow=block;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="decision_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_8" edge="1" parent="1" source="decision_2" style="endArrow=block;html=1;rounded=0;" target="block_5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_9" edge="1" parent="1" source="block_5" style="endArrow=block;html=1;rounded=0;" target="decision_3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_10" edge="1" parent="1" source="decision_3" style="endArrow=block;html=1;rounded=0;" target="block_6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_11" edge="1" parent="1" source="decision_3" style="endArrow=block;html=1;rounded=0;" target="block_7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_12" edge="1" parent="1" source="block_7" style="endArrow=block;html=1;rounded=0;" target="decision_4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_13" edge="1" parent="1" source="decision_4" style="endArrow=block;html=1;rounded=0;" target="block_8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_14" edge="1" parent="1" source="decision_4" style="endArrow=block;html=1;rounded=0;" target="block_9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_15" edge="1" parent="1" source="block_8" style="endArrow=block;html=1;rounded=0;" target="block_10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_16" edge="1" parent="1" source="block_9" style="endArrow=block;html=1;rounded=0;" target="block_10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_17" edge="1" parent="1" source="block_6" style="endArrow=block;html=1;rounded=0;" target="block_3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="60" y="1245" />
+              <mxPoint x="60" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
