@@ -1,0 +1,94 @@
+<!doctype html>
+<!--
+Program name: Bluebonnet Health Clinic - Patient Registration.html
+Author: Onyemaechi Onwudiachi
+Date created: 2/09/2026
+Date last edited: 3/27/2026
+Version: 17
+Description: Step 4 — Guarantor / Responsible Party
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Patient Registration - Step 4</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<iframe class="include-frame" src="header.html" title="Header" width="100%" height="103px" frameborder="0" scrolling="no"></iframe>
+
+<div id="middle">
+  <div class="step-nav" aria-label="Registration steps navigation">
+      <a href="index.html" class="">1) Patient Info</a>
+      <a href="step2-emergency.html" class="">2) Emergency Contact</a>
+      <a href="step3-insurance.html" class="">3) Insurance</a>
+      <a href="step4-guarantor.html" class="active">4) Guarantor</a>
+      <a href="step5-medical.html" class="">5) Medical Info</a>
+      <a href="step6-consents.html" class="">6) Consents &amp; Submit</a>
+      <a href="thankyou.html" style="float:right;">(Preview) Thank You Page</a>
+  </div>
+
+  <div class="card">
+<h2>Step 4 &mdash; Guarantor / Responsible Party</h2>
+<p class="help">Fill this out if someone else is financially responsible (e.g., parent or guardian). Leave blank if the patient is self-responsible.</p>
+
+<form action="step5-medical.html" id="step4-form" novalidate>
+  <fieldset>
+    <legend>Guarantor</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="g_name">Guarantor Name</label><br>
+          <input type="text" id="g_name" name="guarantor_name"
+                 maxlength="60"
+                 title="Enter the full name of the person who will be financially responsible for this patient's medical bills.">
+        </td>
+        <td>
+          <label for="g_rel">Relationship to Patient</label><br>
+          <input type="text" id="g_rel" name="guarantor_relationship"
+                 maxlength="40"
+                 title="Enter the guarantor's relationship to the patient (e.g., Parent, Guardian, Spouse, Self).">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="g_phone">Guarantor Phone</label><br>
+          <input type="tel" id="g_phone" name="guarantor_phone"
+                 placeholder="(555) 555-5555"
+                 title="Enter the best phone number to reach the guarantor for billing questions or payment matters.">
+        </td>
+        <td>
+          <label for="g_email">Guarantor Email</label><br>
+          <input type="email" id="g_email" name="guarantor_email"
+                 placeholder="name@domain.tld"
+                 title="Enter the guarantor's email address for billing statements and correspondence.">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <label for="g_addr">Guarantor Address</label><br>
+          <input type="text" id="g_addr" name="guarantor_address"
+                 maxlength="120" placeholder="Street, City, State ZIP"
+                 title="Enter the guarantor's full mailing address including street, city, state, and ZIP code. Example: 123 Main St, Houston, TX 77002.">
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <div class="actions">
+    <a class="btn secondary" href="step3-insurance.html"
+       title="Go back to the Insurance step.">&larr; Back</a>
+    <button type="submit" class="primary"
+            title="Save guarantor information and proceed to Medical Information.">Save &amp; Continue &rarr;</button>
+    <button type="reset" class="danger"
+            title="Clear all fields on this page.">CLEAR AND START OVER</button>
+  </div>
+</form>
+  </div>
+</div>
+<iframe class="include-frame" src="footer.html" title="Footer" width="100%" height="167px" frameborder="0" scrolling="no"></iframe>
+<script src="states.js"></script>
+<script src="bluebonnet.js"></script>
+</body>
+</html>

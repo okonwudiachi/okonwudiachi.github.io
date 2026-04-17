@@ -1,0 +1,317 @@
+<!doctype html>
+<!--
+Program name: Bluebonnet Health Clinic - Patient Registration.html
+Author: Onyemaechi Onwudiachi
+Date created: 2/09/2026
+Date last edited: 3/27/2026
+Version: 17
+Description: A proposed patient intake form for a healthcare facility.
+             Step 1 — Patient Information
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Patient Registration - Step 1</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<!-- Common header -->
+  <iframe class="include-frame" src="header.html" title="Header" width="100%" height="103px" frameborder="0" scrolling="no"></iframe>
+
+<div id="middle">
+  <div class="step-nav" aria-label="Registration steps navigation">
+      <a href="index.html" class="active">1) Patient Info</a>
+      <a href="step2-emergency.html" class="">2) Emergency Contact</a>
+      <a href="step3-insurance.html" class="">3) Insurance</a>
+      <a href="step4-guarantor.html" class="">4) Guarantor</a>
+      <a href="step5-medical.html" class="">5) Medical Info</a>
+      <a href="step6-consents.html" class="">6) Consents &amp; Submit</a>
+      <a href="thankyou.html" style="float:right;">(Preview) Thank You Page</a>
+  </div>
+
+  <div class="card">
+<h2>Step 1 &mdash; Patient Information</h2>
+<p class="note">
+  Please complete all required fields. Your information is saved as you move between pages.
+</p>
+
+<form action="step2-emergency.html" method="get" id="step1-form" novalidate>
+  <fieldset>
+    <legend>Account Setup (for patient portal access)</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="user_id">Desired User ID</label><br>
+          <input type="text" id="user_id" name="user_id" maxlength="30"
+                 placeholder="e.g., onyemaechi24"
+                 pattern="^[a-z][a-z0-9_-]{4,29}$"
+                 title="5–30 characters; letters, numbers, and underscores only. No spaces or special characters."
+                 required>
+          <div class="help">Max 20 characters. Letters, numbers, and underscores only.</div>
+        </td>
+        <td>
+          <label for="email">Email Address</label><br>
+          <input type="email" id="email" name="email"
+                 placeholder="name@domain.tld"
+                 title="Enter a valid email address in the format name@domain.tld"
+                 required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="password">Password</label><br>
+          <input type="password" id="password" name="password"
+                 minlength="8" maxlength="64"
+                 title="Must be at least 8 characters and include an uppercase letter, lowercase letter, number, and special character (e.g., !, @, #, $)."
+                 required>
+          <div class="help">8+ chars; uppercase, lowercase, number &amp; special character.</div>
+        </td>
+        <td>
+          <label for="password2">Re-enter Password</label><br>
+          <input type="password" id="password2" name="password_confirm"
+                 minlength="8" maxlength="64"
+                 title="Re-enter your password exactly as typed above to confirm it matches."
+                 required>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Patient Demographics</legend>
+
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="first_name">First Name</label><br>
+          <input type="text" id="first_name" name="first_name"
+                 maxlength="30"
+                 pattern="^[A-Za-z\-' ]{1,30}$"
+                 title="Enter your legal first name. Only letters, hyphens, apostrophes, and spaces are allowed."
+                 required>
+        </td>
+
+        <td>
+          <label for="middle_initial">Middle Initial</label><br>
+          <input type="text" id="middle_initial" name="middle_initial"
+                 maxlength="1" size="2" placeholder="M"
+                 pattern="^[A-Za-z]$"
+                 title="Enter your middle initial — one letter only (optional).">
+        </td>
+
+        <td>
+          <label for="last_name">Last Name</label><br>
+          <input type="text" id="last_name" name="last_name"
+                 maxlength="30"
+                 pattern="^[A-Za-z'\-2-5]{1,30}$"
+                 title="Enter your legal last name. Only letters, hyphens, apostrophes, and spaces are allowed."
+                 required>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label for="dob">Date of Birth (MM/DD/YYYY)</label><br>
+          <input type="text" id="dob" name="date_of_birth"
+                 title="Enter your date of birth. Must be in the past and not more than 120 years ago."
+                 required>
+          <div class="help">Format: MM/DD/YYYY (must be in the past)</div>
+        </td>
+
+        <td colspan="2">
+          <label for="ssn">Social Security (do not use real SSN when testing)</label><br>
+          <input type="password" id="ssn" name="ssn"
+                 minlength="9" maxlength="11"
+                 placeholder="XXX-XX-XXXX"
+                 pattern="^(\d{9}|\d{3}-\d{2}-\d{4})$"
+                 title="Enter your 9-digit Social Security Number with or without dashes (e.g., 123-45-6789 or 123456789)."
+                 required>
+          <div class="help">9 digits or 11 characters with dashes (e.g., 123-45-6789).</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label>Gender</label><br>
+          <label title="Select Male as your gender identity"><input type="radio" name="gender" value="male" required> Male</label><br>
+          <label title="Select Female as your gender identity"><input type="radio" name="gender" value="female"> Female</label><br>
+          <label title="Select Other if your gender identity is not listed above"><input type="radio" name="gender" value="other"> Other</label>
+        </td>
+
+        <td>
+          <label>Have you been vaccinated?</label><br>
+          <label title="Select Yes if you have received vaccinations"><input type="radio" name="vaccinated" value="yes" required> Yes</label><br>
+          <label title="Select No if you have not been vaccinated"><input type="radio" name="vaccinated" value="no"> No</label><br>
+          <label title="Select Not sure if you are uncertain of your vaccination status"><input type="radio" name="vaccinated" value="unsure"> Not sure</label>
+        </td>
+
+        <td>
+          <label>Do you have insurance?</label><br>
+          <label title="Select Yes if you currently have active health insurance"><input type="radio" name="has_insurance" value="yes" required> Yes</label><br>
+          <label title="Select No if you do not have health insurance"><input type="radio" name="has_insurance" value="no"> No</label><br>
+          <label title="Select Pending if your insurance is being processed or verified"><input type="radio" name="has_insurance" value="pending"> Pending</label>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="3">
+          <label for="health_scale">Health Scale (1–10, where 10 is excellent)</label><br>
+          <input type="range" id="health_scale" name="health_scale" min="1" max="10" value="5"
+                 title="Drag the slider to rate your overall current health: 1 = very poor, 10 = excellent.">
+          &nbsp; <output name="health_scale_output" for="health_scale">5</output>
+          <div class="help">Drag to rate your overall health. 1 = very poor, 10 = excellent.</div>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Address</legend>
+    <table class="form-table">
+      <tr>
+        <td colspan="3">
+          <label for="addr1">Address Line 1</label><br>
+          <input type="text" id="addr1" name="address_line1"
+                 maxlength="30"
+                 title="Enter the primary line of your street address (e.g., house number and street name)."
+                 required>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <label for="addr2">Address Line 2</label><br>
+          <input type="text" id="addr2" name="address_line2"
+                 maxlength="30"
+                 title="Optional: Enter an apartment, suite, unit, or building number if applicable.">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="city">City</label><br>
+          <input type="text" id="city" name="city"
+                 maxlength="30" list="cityHints"
+                 title="Enter the name of your city. Start typing to see suggestions for common local cities."
+                 required>
+          <datalist id="cityHints">
+            <option value="Houston">
+            <option value="Sugar Land">
+            <option value="Pearland">
+            <option value="Katy">
+            <option value="Missouri City">
+          </datalist>
+        </td>
+
+        <td>
+          <label for="state">State / Territory</label><br>
+          <select id="state" name="state"
+                  title="Select the US state or territory where you currently reside."
+                  required>
+          </select>
+        </td>
+
+        <td>
+          <label for="zip">Zip Code</label><br>
+          <input type="text" id="zip" name="zip_code"
+                 maxlength="10" placeholder="77496"
+                 pattern="^\d{5}(-\d{4})?$"
+                 title="Enter your 5-digit ZIP code (e.g., 77002), or the full ZIP+4 format (e.g., 77002-1234)."
+                 required>
+          <div class="help">Accepts ##### or #####-####.</div>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Reason for Visit</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="reason">Reason for Visit (quick pick)</label><br>
+          <input type="text" id="reason" name="reason_for_visit"
+                 list="reasonHints" placeholder="Start typing…"
+                 title="Select or type the primary reason for your visit today. You may choose a suggestion or type your own.">
+          <datalist id="reasonHints">
+            <option value="Annual physical">
+            <option value="Follow-up appointment">
+            <option value="New patient consultation">
+            <option value="Flu-like symptoms">
+            <option value="Medication refill">
+          </datalist>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="symptoms">Describe your current symptoms</label><br>
+          <textarea id="symptoms" name="symptoms_description" rows="3" cols="50"
+                    placeholder="Describe symptoms, when they started, and any triggers…"
+                    title="Please describe your symptoms in detail, including when they started, how severe they are, and anything that makes them better or worse."></textarea>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Medical History (Check all that apply)</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label title="Check if you have had Chicken Pox"><input type="checkbox" name="history_chickenpox" value="1"> Chicken Pox</label><br>
+          <label title="Check if you have had Measles"><input type="checkbox" name="history_measles" value="1"> Measles</label><br>
+          <label title="Check if you have had or tested positive for COVID-19"><input type="checkbox" name="history_covid19" value="1"> COVID&#8209;19</label><br>
+          <label title="Check if you have had a Tetanus infection or received a Tetanus shot"><input type="checkbox" name="history_tetanus" value="1"> Tetanus</label><br>
+          <label title="Check if you have been diagnosed with Asthma"><input type="checkbox" name="history_asthma" value="1"> Asthma</label><br>
+          <label title="Check if you have been diagnosed with Diabetes (Type 1 or Type 2)"><input type="checkbox" name="history_diabetes" value="1"> Diabetes</label>
+        </td>
+        <td>
+          <label for="allergies">Allergies (optional)</label><br>
+          <input type="text" id="allergies" name="allergies"
+                 placeholder="e.g., Penicillin, peanuts"
+                 title="List any known drug, food, or environmental allergies. Separate multiple entries with commas.">
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Preferred Contact Method</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="pref_contact">Preferred Contact</label><br>
+          <select id="pref_contact" name="preferred_contact"
+                  title="Select how you prefer us to contact you with appointment reminders, test results, and other communications.">
+            <option value="" selected>Select…</option>
+            <optgroup label="Phone-based">
+              <option value="phone">Phone call</option>
+              <option value="text">Text message</option>
+            </optgroup>
+            <optgroup label="Online">
+              <option value="email">Email</option>
+              <option value="portal">Patient portal message</option>
+            </optgroup>
+          </select>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <div class="actions">
+    <button class="btn secondary" type="submit" formaction="step2-emergency.html"
+            title="Save your current entries and proceed to the Emergency Contact step.">Save &amp; Continue &rarr;</button>
+    <button type="reset" class="danger"
+            title="Clear all fields on this page and start over from scratch.">CLEAR AND START OVER</button>
+    <button type="submit" class="primary" formaction="step6-consents.html"
+            title="Skip to the final Consents page and submit without completing middle steps.">Submit Now (Optional)</button>
+  </div>
+</form>
+  </div>
+</div>
+<!--Common Footer-->
+<iframe class="include-frame" src="footer.html" title="Footer" width="100%" height="167px" frameborder="0" scrolling="no"></iframe>
+<script src="states.js"></script>
+<script src="bluebonnet.js"></script>
+</body>
+</html>

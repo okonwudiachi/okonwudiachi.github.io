@@ -1,0 +1,127 @@
+<!doctype html>
+<!--
+Program name: Bluebonnet Health Clinic - Patient Registration.html
+Author: Onyemaechi Onwudiachi
+Date created: 2/09/2026
+Date last edited: 3/27/2026
+Version: 17
+Description: Step 3 — Insurance
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Patient Registration - Step 3</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<iframe class="include-frame" src="header.html" title="Header" width="100%" height="103px" frameborder="0" scrolling="no"></iframe>
+
+<div id="middle">
+  <div class="step-nav" aria-label="Registration steps navigation">
+      <a href="index.html" class="">1) Patient Info</a>
+      <a href="step2-emergency.html" class="">2) Emergency Contact</a>
+      <a href="step3-insurance.html" class="active">3) Insurance</a>
+      <a href="step4-guarantor.html" class="">4) Guarantor</a>
+      <a href="step5-medical.html" class="">5) Medical Info</a>
+      <a href="step6-consents.html" class="">6) Consents &amp; Submit</a>
+      <a href="thankyou.html" style="float:right;">(Preview) Thank You Page</a>
+  </div>
+
+  <div class="card">
+<h2>Step 3 &mdash; Insurance</h2>
+<p class="help">Primary and secondary insurance information. All fields are optional if you do not have insurance.</p>
+
+<form action="step4-guarantor.html" id="step3-form" novalidate>
+  <fieldset>
+    <legend>Primary Insurance</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="ins_provider">Insurance Provider</label><br>
+          <input type="text" id="ins_provider" name="primary_ins_provider"
+                 maxlength="60" placeholder="e.g., Blue Cross Blue Shield"
+                 title="Enter the full name of your primary health insurance company.">
+        </td>
+        <td>
+          <label for="member_id">Member ID</label><br>
+          <input type="text" id="member_id" name="primary_member_id"
+                 maxlength="30"
+                 pattern="^[A-Za-z0-9\-]{3,30}$"
+                 title="Enter your insurance Member ID exactly as it appears on your insurance card (letters and numbers, no spaces).">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="group_no">Group Number</label><br>
+          <input type="text" id="group_no" name="primary_group_number"
+                 maxlength="30"
+                 title="Enter your insurance Group Number as shown on your insurance card. This may be a combination of letters and numbers.">
+        </td>
+        <td>
+          <label for="plan_type">Plan Type</label><br>
+          <select id="plan_type" name="primary_plan_type"
+                  title="Select the type of insurance plan you have. HMO and PPO are the most common commercial plans; Medicare and Medicaid are government plans.">
+            <option value="" selected>Select…</option>
+            <optgroup label="Commercial">
+              <option value="HMO">HMO</option>
+              <option value="PPO">PPO</option>
+              <option value="EPO">EPO</option>
+            </optgroup>
+            <optgroup label="Government">
+              <option value="Medicare">Medicare</option>
+              <option value="Medicaid">Medicaid</option>
+              <option value="CHIP">CHIP</option>
+            </optgroup>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <label for="card_notes">Insurance Card Notes (optional)</label><br>
+          <textarea id="card_notes" name="primary_card_notes" rows="3" cols="50"
+                    placeholder="Anything we should know about your coverage?"
+                    title="Optional: Add any notes about your insurance coverage, such as limitations, special authorizations required, or other relevant details."></textarea>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Secondary Insurance (Optional)</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="sec_provider">Provider</label><br>
+          <input type="text" id="sec_provider" name="secondary_ins_provider"
+                 maxlength="60"
+                 title="If you have a second insurance plan, enter the provider's name here.">
+        </td>
+        <td>
+          <label for="sec_member">Member ID</label><br>
+          <input type="text" id="sec_member" name="secondary_member_id"
+                 maxlength="30"
+                 title="Enter the Member ID from your secondary insurance card.">
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <div class="actions">
+    <a class="btn secondary" href="step2-emergency.html"
+       title="Go back to the Emergency Contact step.">&larr; Back</a>
+    <button type="submit" class="primary"
+            title="Save insurance information and proceed to the Guarantor step.">Save &amp; Continue &rarr;</button>
+    <button type="reset" class="danger"
+            title="Clear all fields on this page.">CLEAR AND START OVER</button>
+  </div>
+</form>
+  </div>
+</div>
+<iframe class="include-frame" src="footer.html" title="Footer" width="100%" height="167px" frameborder="0" scrolling="no"></iframe>
+<script src="states.js"></script>
+<script src="bluebonnet.js"></script>
+</body>
+</html>
