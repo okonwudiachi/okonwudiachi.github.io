@@ -1,0 +1,623 @@
+PSEUDOCODE DOCUMENT
+Bluebonnet Health Clinic Registration Form
+
+OVERVIEW
+This site is a six-step patient registration workflow.
+The site collects patient portal credentials, patient demographics, emergency contact information,
+insurance information, guarantor information, medical information, and final consent/signature details.
+The workflow behaves like one connected form by saving values in session storage and restoring them on each page.
+A Review button allows the user to see a cumulative summary of all saved pages before final submission.
+A Validate button must approve the current page before real submit / save-and-continue buttons are shown.
+
+=================================================================
+MAIN WORKFLOW
+=================================================================
+OPEN PAGE
+    load common header
+        display clinic logo
+        display clinic name / branding
+        display today’s date
+    end load header
+
+    load step navigation bar
+        show links for:
+            Step 1 Patient Info
+            Step 2 Emergency Contact
+            Step 3 Insurance
+            Step 4 Guarantor
+            Step 5 Medical Info
+            Step 6 Consents and Submit
+            Preview Thank You page
+    end load step navigation bar
+
+    display current step form contents
+    restore previously saved values for current page from session storage
+    initialize formatting helpers and validation rules
+    inject shared action behavior
+        add REVIEW button
+        add VALIDATE button
+        hide actual submit / save-and-continue buttons until page validates
+    end inject shared action behavior
+
+    load common footer
+        display footer content
+        display social / informational items
+    end load footer
+END OPEN PAGE
+
+=================================================================
+SHARED PAGE LOGIC
+=================================================================
+WHEN DOM CONTENT IS READY
+    populate state drop-down list if state selector exists
+    initialize live validation for visible fields
+    initialize date formatting and date range rules
+    initialize phone number formatting rules
+    initialize ZIP formatting rules
+    initialize email lowercase normalization rules
+    initialize password strength and password match rules when present
+    initialize health slider display when present
+    initialize preferred-contact dynamic field display when present
+    initialize required radio-group validation
+    initialize required checkbox-group validation
+    initialize auto-save behavior
+    initialize review button
+    initialize validate button gate
+    restore saved data into current form
+    update submit button availability based on current page validity
+END WHEN
+
+SAVE CURRENT PAGE DATA
+    read each input, select, textarea, checkbox, and radio from current form
+    convert field values to a key/value object
+    merge current page values into the stored session object
+    save merged object back to session storage
+END SAVE CURRENT PAGE DATA
+
+RESTORE CURRENT PAGE DATA
+    read saved session object
+    for each field on current page
+        if a saved value exists for that field
+            restore that value into the field
+        endif
+    endfor
+
+    do not restore raw password fields for safety
+    mask or omit sensitive credentials where appropriate
+END RESTORE CURRENT PAGE DATA
+
+AUTO-SAVE EVENTS
+    when user changes a field
+        save current page data
+    when user submits a page
+        save current page data
+    when page is being left or hidden
+        save current page data
+END AUTO-SAVE EVENTS
+
+=================================================================
+STEP 1 PAGE — PATIENT INFORMATION
+=================================================================
+DISPLAY STEP 1 FORM
+    display Account Setup section
+        Desired User ID
+        Email Address
+        Password
+        Re-enter Password
+    end Account Setup section
+
+    display Patient Demographics section
+        First Name
+        Middle Initial
+        Last Name
+        Date of Birth
+        Social Security Number
+        Gender radio buttons
+        Vaccinated radio buttons
+        Insurance-status radio buttons
+        Health Scale slider with displayed numeric output
+    end Patient Demographics section
+
+    display Address section
+        Address Line 1
+        Address Line 2
+        City
+        State / Territory
+        ZIP Code
+    end Address section
+
+    display Reason for Visit section
+        Reason for Visit quick-pick field
+        Symptoms Description textarea
+    end Reason for Visit section
+
+    display Medical History section
+        history checkboxes such as Chicken Pox, Measles, COVID-19, Tetanus, Asthma, Diabetes
+        Allergies text field
+    end Medical History section
+
+    display Preferred Contact Method section
+        Preferred Contact drop-down
+        if preferred contact is phone or text
+            show Preferred Contact Phone field
+            hide Preferred Contact Email field
+        else if preferred contact is email or portal
+            show Preferred Contact Email field
+            hide Preferred Contact Phone field
+        else
+            hide both detail fields
+        endif
+    end Preferred Contact Method section
+
+    display actions
+        Validate
+        Save and Continue to Step 2
+        Clear and Start Over
+        Submit Now (optional jump to final page)
+    end actions
+END DISPLAY STEP 1 FORM
+
+=================================================================
+STEP 2 PAGE — EMERGENCY CONTACT
+=================================================================
+DISPLAY STEP 2 FORM
+    display Emergency Contact Name
+    display Emergency Contact Relationship
+    display Emergency Contact Phone
+    display Alternate Emergency Contact Phone
+
+    display actions
+        Back to Step 1
+        Validate
+        Save and Continue to Step 3
+        Clear and Start Over
+    end actions
+END DISPLAY STEP 2 FORM
+
+=================================================================
+STEP 3 PAGE — INSURANCE
+=================================================================
+DISPLAY STEP 3 FORM
+    display Primary Insurance section
+        Primary Insurance Provider
+        Primary Member ID
+        Primary Group Number
+        Primary Plan Type
+        Primary Card Notes
+    end Primary Insurance section
+
+    display Secondary Insurance section
+        Secondary Insurance Provider
+        Secondary Member ID
+    end Secondary Insurance section
+
+    display actions
+        Back to Step 2
+        Validate
+        Save and Continue to Step 4
+        Clear and Start Over
+    end actions
+END DISPLAY STEP 3 FORM
+
+=================================================================
+STEP 4 PAGE — GUARANTOR
+=================================================================
+DISPLAY STEP 4 FORM
+    display Guarantor Name
+    display Guarantor Relationship
+    display Guarantor Phone
+    display Guarantor Email
+    display Guarantor Address
+
+    display actions
+        Back to Step 3
+        Validate
+        Save and Continue to Step 5
+        Clear and Start Over
+    end actions
+END DISPLAY STEP 4 FORM
+
+=================================================================
+STEP 5 PAGE — MEDICAL INFORMATION
+=================================================================
+DISPLAY STEP 5 FORM
+    display Current Medications textarea
+    display Allergy Details textarea
+    display Primary Care Provider Name
+    display Primary Care Provider Phone
+
+    display actions
+        Back to Step 4
+        Validate
+        Save and Continue to Step 6
+        Clear and Start Over
+    end actions
+END DISPLAY STEP 5 FORM
+
+=================================================================
+STEP 6 PAGE — CONSENTS AND SUBMISSION
+=================================================================
+DISPLAY STEP 6 FORM
+    display consent checkboxes
+        Consent to Treatment
+        Financial Policy Acknowledgement
+        HIPAA Notice Acknowledgement
+        Communication Consent (optional)
+    end consent checkboxes
+
+    display signature area
+        Printed Name
+        Signature Date
+        Signature field
+    end signature area
+
+    display actions
+        Back to Step 5
+        Review
+        Validate
+        Final Submit
+        Clear and Start Over
+    end actions
+END DISPLAY STEP 6 FORM
+
+FINAL SUBMISSION
+    when user clicks final submit
+        validate all required fields on current page
+        if current page is valid
+            save page data
+            continue to thank-you page
+        else
+            stop submission
+            move focus to first invalid field
+            display appropriate error messages
+        endif
+END FINAL SUBMISSION
+
+THANK-YOU PAGE
+    display confirmation / thank-you message
+    indicate registration workflow is complete
+END THANK-YOU PAGE
+
+=================================================================
+VALIDATION EVENTS — SHARED PATTERN
+=================================================================
+IN THE CASE OF A USER TYPING, CHANGING, OR LEAVING A FIELD
+    run field-specific validation
+    if the field is valid
+        remove any prior error message for that field
+        mark the field visually valid
+    else
+        display the field-specific error message
+        keep the warning visible until corrected
+    endif
+
+    after each change
+        mark validation gate as dirty
+        hide actual submit buttons until Validate is clicked again successfully
+END CASE
+
+=================================================================
+FIELD VALIDATION RULES
+=================================================================
+CHECK USER ID
+    if blank
+        display Required
+    else if not 5 to 30 characters starting with a letter
+        display user ID format error
+    else if contains invalid characters
+        display letters, numbers, underscore, or hyphen only error
+    else
+        clear user ID error
+    endif
+END CHECK USER ID
+
+CHECK EMAIL
+    convert value to lowercase
+    if blank and field is required
+        display Required
+    else if format is not valid name@domain.tld
+        display email format error
+    else
+        clear email error
+    endif
+END CHECK EMAIL
+
+CHECK PASSWORD
+    if blank
+        display Required
+    else if fewer than 8 characters
+        display password length / strength error
+    else if missing uppercase, lowercase, number, or special character
+        display password strength error
+    else
+        clear password error
+    endif
+END CHECK PASSWORD
+
+CHECK PASSWORD MATCH
+    if confirmation password is blank
+        display Required
+    else if confirmation password does not exactly match password
+        display passwords do not match error
+    else
+        clear password-confirmation error
+    endif
+END CHECK PASSWORD MATCH
+
+CHECK FIRST NAME
+    if blank
+        display Required
+    else if length is not 1 to 30
+        display length error
+    else if value contains characters other than letters, apostrophes, or dashes
+        display first-name format error
+    else
+        clear first-name error
+    endif
+END CHECK FIRST NAME
+
+CHECK MIDDLE INITIAL
+    if blank
+        accept blank as valid optional field
+    else if value is not exactly one letter
+        display one-letter-only error
+    else
+        clear middle-initial error
+    endif
+END CHECK MIDDLE INITIAL
+
+CHECK LAST NAME
+    if blank
+        display Required
+    else if length is not 1 to 30
+        display length error
+    else if value contains characters other than letters, apostrophes, dashes, or numbers 2 through 5
+        display last-name format error
+    else
+        clear last-name error
+    endif
+END CHECK LAST NAME
+
+CHECK DATE OF BIRTH
+    if blank
+        display Required
+    else if format is not MM/DD/YYYY or valid date input equivalent
+        display date format error
+    else if date is today or in the future
+        display birth-date future-date error
+    else if date is more than 120 years ago
+        display birth-date minimum-range error
+    else
+        clear date-of-birth error
+    endif
+END CHECK DATE OF BIRTH
+
+CHECK SSN
+    if blank
+        display Required
+    else if not exactly 9 digits, with or without dashes
+        display SSN format error
+    else
+        clear SSN error
+    endif
+END CHECK SSN
+
+CHECK REQUIRED RADIO GROUPS
+    for each required radio group such as gender, vaccinated, has_insurance
+        if no option is selected
+            display Required for that group
+        else
+            clear group error
+        endif
+    endfor
+END CHECK REQUIRED RADIO GROUPS
+
+CHECK HEALTH SCALE
+    if slider value is present
+        update displayed output number beside slider
+    endif
+END CHECK HEALTH SCALE
+
+CHECK ADDRESS LINES AND CITY
+    for each address / city field
+        if field is required and blank
+            display Required
+        else if nonblank value is shorter than minimum length
+            display minimum-length error
+        else if value exceeds maximum allowed length
+            display maximum-length error
+        else
+            clear field error
+        endif
+    endfor
+END CHECK ADDRESS LINES AND CITY
+
+CHECK STATE SELECTION
+    if no state or territory is selected
+        display select-a-state error
+    else
+        clear state error
+    endif
+END CHECK STATE SELECTION
+
+CHECK ZIP CODE
+    if blank
+        display Required
+    else if format is not 5 digits or ZIP+4
+        display ZIP format error
+    else
+        clear ZIP error
+    endif
+END CHECK ZIP CODE
+
+CHECK REASON FOR VISIT AND SYMPTOMS
+    if optional field is blank
+        accept as valid unless otherwise required by page rule
+    else
+        accept text within allowed length range
+    endif
+END CHECK REASON FOR VISIT AND SYMPTOMS
+
+CHECK PHONE FIELDS
+    while user types
+        strip non-numeric characters
+        reformat as 000-000-0000 when enough digits exist
+    endwhile
+
+    on blur or validation check
+        if field is required and blank
+            display Required
+        else if nonblank value is not in 000-000-0000 format
+            display phone format error
+        else
+            clear phone error
+        endif
+END CHECK PHONE FIELDS
+
+CHECK PREFERRED CONTACT
+    if no preferred contact option selected
+        accept as optional unless page logic requires selection
+    else if preferred contact is phone or text
+        require preferred-contact-phone field
+        validate phone format
+    else if preferred contact is email or portal
+        require preferred-contact-email field
+        validate email format
+    endif
+END CHECK PREFERRED CONTACT
+
+CHECK REQUIRED CONSENT CHECKBOXES
+    for each required checkbox such as consent to treat, financial policy acknowledgement, HIPAA acknowledgement
+        if unchecked
+            display Required for that checkbox group
+        else
+            clear group error
+        endif
+    endfor
+END CHECK REQUIRED CONSENT CHECKBOXES
+
+CHECK SIGNATURE PRINTED NAME
+    allowed printed name values are:
+        first_name + space + last_name
+        OR first_name + space + middle_initial + space + last_name
+    if blank
+        display Required
+    else if entered printed name does not match one of the allowed name combinations from Step 1
+        display printed-name mismatch error
+    else
+        clear printed-name error
+    endif
+END CHECK SIGNATURE PRINTED NAME
+
+CHECK SIGNATURE DATE
+    if blank
+        display Required
+    else if signature date is not today’s date
+        display signature-date-must-be-today error
+    else
+        clear signature-date error
+    endif
+END CHECK SIGNATURE DATE
+
+CHECK SIGNATURE FIELD
+    allowed signature values are:
+        first_name + space + last_name
+        OR first_name + space + middle_initial + space + last_name
+    if blank
+        display Required
+    else if entered signature does not match one of the allowed name combinations from Step 1
+        display signature mismatch error
+    else
+        clear signature error
+    endif
+END CHECK SIGNATURE FIELD
+
+=================================================================
+VALIDATE BUTTON LOGIC
+=================================================================
+WHEN VALIDATE BUTTON IS CLICKED
+    run validation on every field on the current page
+    run validation on required radio groups on the current page
+    run validation on required checkbox groups on the current page
+    run preferred-contact dependency validation if that section exists
+
+    if every required and visible field passes validation
+        reveal the real submit / save-and-continue buttons
+        mark validation gate as clean
+    else
+        keep actual submit buttons hidden
+        move cursor or focus to the first invalid field
+        keep all relevant error messages visible
+    endif
+END WHEN
+
+=================================================================
+SUBMIT / SAVE-AND-CONTINUE BUTTON LOGIC
+=================================================================
+WHEN USER CLICKS SAVE AND CONTINUE OR FINAL SUBMIT
+    if actual submit buttons are still hidden or page has become invalid again
+        stop submission
+        run full validation and show messages
+    else
+        save current page data
+        move to next page or thank-you page
+    endif
+END WHEN
+
+WHEN USER EDITS ANY FIELD AFTER A SUCCESSFUL VALIDATE
+    hide actual submit buttons again
+    require user to click Validate again before advancing
+END WHEN
+
+=================================================================
+REVIEW BUTTON LOGIC
+=================================================================
+WHEN REVIEW BUTTON IS CLICKED
+    save current page data first
+    load all stored data from session storage
+    build a grouped review summary of all steps
+        Account Setup
+        Demographics
+        Address
+        Visit Reason and Symptoms
+        Medical History
+        Emergency Contact
+        Insurance
+        Guarantor
+        Additional Medical Info
+        Consents and Signature
+    end build summary
+
+    for each displayed review field
+        show pass / missing / required / error style status
+        show friendly labels instead of raw key names
+    endfor
+
+    display review modal overlay
+        show all cumulative information
+        show acknowledge / return button
+        show print button
+        allow click outside or Escape key to close
+    end display review modal overlay
+END WHEN
+
+=================================================================
+RESET / CLEAR LOGIC
+=================================================================
+WHEN USER CLICKS CLEAR AND START OVER
+    clear visible fields on current page
+    clear validation styling and messages for current page
+    reset dynamic sections such as preferred-contact detail slot
+    hide actual submit buttons again
+    keep session behavior consistent with reset logic for that page
+END WHEN
+
+=================================================================
+NOTES / SPECIAL BEHAVIOR
+=================================================================
+    the state list is loaded from an external states.js file
+    the review modal is created dynamically by JavaScript
+    passwords are intentionally not fully restored after save
+    one known data-key collision exists for allergies across two different steps
+    the thank-you page is currently a static front-end destination, not a real backend submission
+END NOTES
