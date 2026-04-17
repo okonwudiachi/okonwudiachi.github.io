@@ -4,7 +4,7 @@ Program name: Bluebonnet Health Clinic - Patient Registration.html
 Author: Onyemaechi Onwudiachi
 Date created: 2/09/2026
 Date last edited: 3/27/2026
-Version: 17
+Version: 18
 Description: A proposed patient intake form for a healthcare facility.
              Step 1 — Patient Information
 -->
@@ -293,6 +293,22 @@ Description: A proposed patient intake form for a healthcare facility.
               <option value="portal">Patient portal message</option>
             </optgroup>
           </select>
+          <div class="help">Phone-based methods require a phone number. Online methods require an email address.</div>
+
+          <!-- CHANGE: dynamic detail inputs for preferred contact; JS shows the correct one and validates it on the fly. -->
+          <div id="preferred-contact-phone-wrap" class="contact-detail-slot" hidden>
+            <label for="preferred_contact_phone">Preferred Contact Phone</label><br>
+            <input type="tel" id="preferred_contact_phone" name="preferred_contact_phone"
+                   maxlength="12" placeholder="000-000-0000"
+                   title="Required when phone call or text message is selected. Enter 10 digits in 000-000-0000 format.">
+          </div>
+
+          <div id="preferred-contact-email-wrap" class="contact-detail-slot" hidden>
+            <label for="preferred_contact_email">Preferred Contact Email</label><br>
+            <input type="email" id="preferred_contact_email" name="preferred_contact_email"
+                   maxlength="80" placeholder="name@domain.tld"
+                   title="Required when email or patient portal message is selected. Enter a valid email address; it will be converted to lowercase.">
+          </div>
         </td>
       </tr>
     </table>

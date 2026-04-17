@@ -4,7 +4,7 @@ Program name: Bluebonnet Health Clinic - Patient Registration.html
 Author: Onyemaechi Onwudiachi
 Date created: 2/09/2026
 Date last edited: 3/27/2026
-Version: 17
+Version: 18
 Description: Step 6 — Consents & Signature
 -->
 <html lang="en">
@@ -65,13 +65,13 @@ Description: Step 6 — Consents & Signature
           <label for="sig_name">Printed Name</label><br>
           <input type="text" id="sig_name" name="signature_print_name"
                  maxlength="60"
-                 title="Print your full legal name as it appears on your government-issued ID."
+                 title="Must exactly match the name entered in Step 1: first name + last name, or first name + middle initial + last name."
                  required>
         </td>
         <td>
           <label for="sig_date">Signature Date (MM/DD/YYYY)</label><br>
           <input type="text" id="sig_date" name="signature_date"
-                 title="Enter today's date."
+                 title="Enter today's date only. Past and future dates are not allowed."
                  required>
         </td>
       </tr>
@@ -80,7 +80,7 @@ Description: Step 6 — Consents & Signature
           <label for="signature">Signature (type your name)</label><br>
           <input type="text" id="signature" name="signature"
                  maxlength="80" placeholder="Type full name as signature"
-                 title="Type your full legal name in this field to serve as your electronic signature, indicating that all information you have provided is accurate and complete."
+                 title="Must exactly match the name entered in Step 1: first name + last name, or first name + middle initial + last name. This typed name serves as your electronic signature."
                  required>
         </td>
       </tr>
