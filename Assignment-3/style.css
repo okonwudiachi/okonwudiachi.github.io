@@ -225,6 +225,13 @@ input[name="first_name"] { border-color: #86b7fe; }
   display: block;
 }
 
+.include-frame-header {
+  position: sticky;
+  width: 100%;
+  border: none;
+  display: block;
+}
+
 #forThanks{
   position:fixed;
   bottom: 0;
