@@ -27,17 +27,21 @@ Description: A proposed patient intake form for a healthcare facility.
   </div>
 
   <div id="clientDate" aria-live="polite">
-    Today: <span id="dateText">Loading…</span>
-  </div>
-
-  <script>
-    // Inline JS allowed: show the web client's day + date
+    <strong>Today:</strong> <span id="dateText">Loading…</span> <br>   
+    <strong>Time:</strong> <span id="timeText"></span> <br>
+    <strong>Location:</strong> <span id="locationText">Detecting location...</span>
+  </div>  
+  <!--
+  <script src="bluebonnet.js">
+    //Inline JS allowed: show the web client's day + date
     (function () {
       var d = new Date();
       var opts = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
       document.getElementById("dateText").textContent = d.toLocaleDateString(undefined, opts);
     })();
-  </script>
+  </script>-->
+  
 </div>
+<script src="bluebonnet.js"></script>
 </body>
 </html>

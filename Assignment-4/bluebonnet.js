@@ -1664,3 +1664,154 @@ document.addEventListener('DOMContentLoaded', function () {
   // CHANGE: keep real action buttons hidden on load until the user explicitly clicks Validate.
   hideActualSubmitButtons();
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// HEADER FUNCTIONS TO DISPLAY DATE AND TIME
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+function updateHeaderDateTime() {
+  var dateText = document.getElementById("dateText");
+  var timeText = document.getElementById("timeText");
+
+  // Exit safely if this page does not contain the header date/time elements
+  if (!dateText && !timeText) return;
+
+  var now = new Date();
+
+  if (dateText) {
+    var dateOptions = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    };
+
+    dateText.textContent = now.toLocaleDateString(undefined, dateOptions);
+  }
+
+  if (timeText) {
+    var timeOptions = {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true
+    };
+
+    timeText.textContent = now.toLocaleTimeString(undefined, timeOptions);
+  }
+}
+
+// updating location text of page
+function updateHeaderLocation() {
+  var locationText = document.getElementById("locationText");
+
+  // Exit safely if this page/header does not contain the location element
+  if (!locationText) return;
+
+  var savedLocation = sessionStorage.getItem("bbhc_user_location");
+  
+  if (savedLocation) {
+    locationText.textContent = savedLocation;
+    return;
+  }
+
+  // Check whether the browser supports geolocation
+  if (!navigator.geolocation) {
+    locationText.textContent = "Location not supported";
+    return;
+  }
+
+  locationText.textContent = "Detecting location...";
+
+  navigator.geolocation.getCurrentPosition(
+    function success(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+
+      reverseLookupLocation(latitude, longitude);
+    },
+
+    function error(err) {
+      if (err.code === err.PERMISSION_DENIED) {
+        locationText.textContent = "Location permission denied";
+      } else if (err.code === err.POSITION_UNAVAILABLE) {
+        locationText.textContent = "Location unavailable";
+      } else if (err.code === err.TIMEOUT) {
+        locationText.textContent = "Location request timed out";
+      } else {
+        locationText.textContent = "Unable to detect location";
+      }
+    },
+
+    {
+      enableHighAccuracy: false,
+      timeout: 10000,
+      maximumAge: 300000
+    }
+  );
+}
+
+// Fetching using reverse lookup
+async function reverseLookupLocation(latitude, longitude) {
+  var locationText = document.getElementById("locationText");
+  if (!locationText) return;
+
+  var url =
+    "https://nominatim.openstreetmap.org/reverse" +
+    "?format=jsonv2" +
+    "&lat=" + encodeURIComponent(latitude) +
+    "&lon=" + encodeURIComponent(longitude) +
+    "&zoom=10" +
+    "&addressdetails=1";
+
+  try {
+    var response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Reverse geocoding failed");
+    }
+
+    var data = await response.json();
+    var address = data.address || {};
+
+    var city =
+      address.city ||
+      address.town ||
+      address.village ||
+      address.hamlet ||
+      address.county ||
+      "";
+
+    var state = address.state || "";
+    var country = address.country || "";
+
+    var readableLocation = [city, state, country]
+      .filter(Boolean)
+      .join(", ");
+
+    locationText.textContent = readableLocation || "Location found";
+
+    // Optional: store location for reuse during the browser session
+    sessionStorage.setItem("bbhc_user_location", locationText.textContent);
+  } catch (error) {
+    console.error("Location lookup error:", error);
+    locationText.textContent = "Location lookup unavailable";
+  }
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  updateHeaderDateTime();
+
+  // Timed event: refresh the displayed time every minute
+  setInterval(updateHeaderDateTime, 60000);
+
+  // Location lookup: asks for permission, gets lat/lon, then reverse-geocodes it
+  updateHeaderLocation();
+});
