@@ -34,14 +34,16 @@ const STORAGE_KEY = 'bbhc_registration';
 // UTILITIES
 // ─────────────────────────────────────────────────────────────────────────────
 
+//Changed saving in sessionStorage to localStorage to satisfy assignment requirement
 function loadSavedData() {
-  try { return JSON.parse(sessionStorage.getItem(STORAGE_KEY)) || {}; }
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
   catch (e) { return {}; }
 }
 
+//changed sessionStorage to localStorage to satisfy assignment requirement
 function saveData(newData) {
   const existing = loadSavedData();
-  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(Object.assign({}, existing, newData)));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(Object.assign({}, existing, newData)));
 }
 
 function collectFormData(form) {
@@ -1709,7 +1711,7 @@ function updateHeaderLocation() {
   if (!locationText) return;
 
   var savedLocation = sessionStorage.getItem("bbhc_user_location");
-  
+
   if (savedLocation) {
     locationText.textContent = savedLocation;
     return;
