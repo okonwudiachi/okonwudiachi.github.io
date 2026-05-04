@@ -1939,7 +1939,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var COOKIE_NAME = 'bbhc_user_recognition';
   var COOKIE_DAYS = 180;
-  var AUTO_DISMISS_MS = 2000;
+  var AUTO_DISMISS_MS = 1000;
 
   // Stores the recognized user object in a browser cookie for future visits.
   // The broader workflow uses this cookie to decide which modal to show on index.html.
@@ -2149,7 +2149,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Displays the return-visit message for users who have not submitted the form yet.
-  // It auto-dismisses after five seconds and then fills the stored name into index.html.
+  // It auto-dismisses after one seconds and then fills the stored name into index.html.
   function showRecognitionWelcomeBackNotSubmitted(user) {
     var ui = createRecognitionOverlay();
     ui.modal.innerHTML = '<h2>Welcome back, ' + escapeRecognitionHtml(user.firstName) + ' ' + escapeRecognitionHtml(user.lastName) + '!</h2><p>Your saved name will be added to the form automatically.</p>';
