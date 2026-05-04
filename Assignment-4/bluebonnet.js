@@ -245,46 +245,6 @@ function initRangeSliders() {
 // PASSWORD MATCH AND RULE CHECKLIST
 // ─────────────────────────────────────────────────────────────────────────────
 
-/*function initPasswordMatch() {
-  var pwd  = document.getElementById('password');
-  var pwd2 = document.getElementById('password2');
-  if (!pwd || !pwd2) return;
-
-  function checkMatch() {
-    if (!pwd2.value) { clearState(pwd2); pwd2.setCustomValidity(''); return; }
-    if (pwd.value !== pwd2.value) {
-      showError(pwd2, 'ERROR: Passwords do not match.');
-      pwd2.setCustomValidity('Passwords do not match.');
-    } else {
-      showValid(pwd2);
-      pwd2.setCustomValidity('');
-    }
-  }
-
-  function checkStrength() {
-    var val = pwd.value;
-    if (!val) { clearState(pwd); pwd.setCustomValidity(''); checkMatch(); return; }
-    if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(val)) {
-      showError(pwd, 'ERROR: Must be 8+ characters with uppercase, lowercase, number, and special character.');
-      pwd.setCustomValidity('Weak password');
-    } else {
-      showValid(pwd);
-      pwd.setCustomValidity('');
-    }
-    checkMatch();
-  }
-
-  pwd.addEventListener('input', checkStrength);
-  pwd2.addEventListener('input', checkMatch);
-  pwd.addEventListener('blur', function() {
-    if (!pwd.value) showError(pwd, 'Required');
-  });
-  pwd2.addEventListener('blur', function() {
-    if (!pwd2.value) showError(pwd2, 'Required');
-    else checkMatch();
-  });
-}*/
-
 // CHANGE: Centralized password rule testing so the live checklist, browser validity,
 // and final validation button all use the same requirements. This satisfies the
 // requested format by validating each rule separately rather than displaying one
