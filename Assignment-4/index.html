@@ -37,7 +37,7 @@ Description: A proposed patient intake form for a healthcare facility.
   Please complete all required fields. Your information is saved as you move between pages.
 </p>
 
-<form action="step2-emergency.html" method="get" id="step1-form" novalidate>
+<form action="step2-emergency.html" method="get" id="step1-form" novalidate> <!--
   <fieldset>
     <legend>Account Setup (for patient portal access)</legend>
     <table class="form-table">
@@ -77,7 +77,7 @@ Description: A proposed patient intake form for a healthcare facility.
         </td>
       </tr>
     </table>
-  </fieldset>
+  </fieldset> -->
 
   <fieldset>
     <legend>Patient Demographics</legend>
@@ -311,6 +311,65 @@ Description: A proposed patient intake form for a healthcare facility.
           </div>
         </td>
       </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Account Setup (for patient portal access)</legend>
+    <table class="form-table">
+      <tr>
+        <td>
+          <label for="user_id">Desired User ID</label><br>
+          <input type="text" id="user_id" name="user_id" maxlength="30"
+                 placeholder="e.g., onyemaechi24"
+                 pattern="^[a-z][a-z0-9_-]{4,29}$"
+                 title="5–30 characters; letters, numbers, and underscores only. No spaces or special characters."
+                 required>
+          <div class="help">Max 20 characters. Letters, numbers, and underscores only.</div>
+        </td>
+        <td>
+          <label for="email">Email Address</label><br>
+          <input type="email" id="email" name="email"
+                 placeholder="name@domain.tld"
+                 title="Enter a valid email address in the format name@domain.tld"
+                 required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="password">Password</label><br>
+          <input type="password" id="password" name="password"
+                 minlength="8" maxlength="64"
+                 title="Must be at least 8 characters and include an uppercase letter, lowercase letter, number, and special character (e.g., !, @, #, $)."
+                 required>
+          <table class="form-table">
+            <tr class="password-validation-row">
+              <td colspan="2">
+                <div id="password-rule-list" class="password-rule-list" aria-live="polite">
+                <div id="pwd-rule-lower" class="password-rule" data-rule="lower">Enter at least 1 lower case letter</div>
+                <div id="pwd-rule-upper" class="password-rule" data-rule="upper">Enter at least 1 upper case letter</div>
+                <div id="pwd-rule-number" class="password-rule" data-rule="number">Enter at least 1 number</div>
+                <div id="pwd-rule-special" class="password-rule" data-rule="special">Enter at least 1 special character</div>
+                <div id="pwd-rule-length" class="password-rule" data-rule="length">Enter a minimum 8 characters</div>
+                </div>
+              </td>
+            </tr>
+          </table>       
+          <!-- CHANGE: Replaced the old one-line password hint with the live checklist below so each password rule can be shown in the same format as the requested example. -->
+        </td>
+        <td>
+          <label for="password2">Re-enter Password</label><br>
+          <input type="password" id="password2" name="password_confirm"
+                 minlength="8" maxlength="64"
+                 title="Re-enter your password exactly as typed above to confirm it matches."
+                 required>
+                 
+          <!-- CHANGE: Inline match message mirrors the provided screenshot by appearing beside the re-enter password field instead of as a separate generic error block. -->
+          <span id="password-match-message" class="password-match-message" aria-live="polite"></span>
+        </td>
+      </tr>
+      <!-- CHANGE: Password requirements are grouped under both password inputs so the user sees lower/upper/number/special/minimum rules in the demonstrated stacked format. -->
+      
     </table>
   </fieldset>
 

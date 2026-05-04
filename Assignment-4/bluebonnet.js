@@ -242,10 +242,10 @@ function initRangeSliders() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// PASSWORD MATCH
+// PASSWORD MATCH AND RULE CHECKLIST
 // ─────────────────────────────────────────────────────────────────────────────
 
-function initPasswordMatch() {
+/*function initPasswordMatch() {
   var pwd  = document.getElementById('password');
   var pwd2 = document.getElementById('password2');
   if (!pwd || !pwd2) return;
@@ -283,6 +283,124 @@ function initPasswordMatch() {
     if (!pwd2.value) showError(pwd2, 'Required');
     else checkMatch();
   });
+}*/
+
+// CHANGE: Centralized password rule testing so the live checklist, browser validity,
+// and final validation button all use the same requirements. This satisfies the
+// requested format by validating each rule separately rather than displaying one
+// combined password error sentence.
+function getPasswordRuleStatus(value) {
+  var val = value || '';
+  return {
+    lower: /[a-z]/.test(val),
+    upper: /[A-Z]/.test(val),
+    number: /\d/.test(val),
+    special: /[\W_]/.test(val),
+    length: val.length >= 8
+  };
+}
+
+// CHANGE: Updates one visible checklist line for a password rule. The text stays
+// in the same stacked format shown in the screenshot, while the class communicates
+// whether that requirement has been satisfied.
+function updatePasswordRuleLine(ruleName, isMet, hasPasswordValue) {
+  var ruleLine = document.getElementById('pwd-rule-' + ruleName);
+  if (!ruleLine) return;
+  ruleLine.classList.remove('password-rule-met', 'password-rule-unmet');
+  if (!hasPasswordValue) return;
+  ruleLine.classList.add(isMet ? 'password-rule-met' : 'password-rule-unmet');
+}
+
+// CHANGE: Controls the password and re-enter password display as one unit so the
+// match message appears beside the confirmation field and the rule list remains
+// grouped below both fields, matching the requested screenshot layout.
+function validatePasswordPair(forceMessage) {
+  var pwd  = document.getElementById('password');
+  var pwd2 = document.getElementById('password2');
+  var matchMsg = document.getElementById('password-match-message');
+  if (!pwd || !pwd2) return true;
+
+  var passwordValue = pwd.value || '';
+  var confirmValue = pwd2.value || '';
+  var hasPasswordValue = passwordValue.length > 0;
+  var hasConfirmValue = confirmValue.length > 0;
+  var status = getPasswordRuleStatus(passwordValue);
+  var allRulesMet = status.lower && status.upper && status.number && status.special && status.length;
+
+  updatePasswordRuleLine('lower', status.lower, hasPasswordValue);
+  updatePasswordRuleLine('upper', status.upper, hasPasswordValue);
+  updatePasswordRuleLine('number', status.number, hasPasswordValue);
+  updatePasswordRuleLine('special', status.special, hasPasswordValue);
+  updatePasswordRuleLine('length', status.length, hasPasswordValue);
+
+  // CHANGE: Suppress the older generic password error block so the checklist is
+  // the only password-format guidance shown to the user.
+  var pwdErr = pwd.parentElement ? pwd.parentElement.querySelector('.field-error') : null;
+  var pwd2Err = pwd2.parentElement ? pwd2.parentElement.querySelector('.field-error') : null;
+  if (pwdErr) pwdErr.textContent = '';
+  if (pwd2Err) pwd2Err.textContent = '';
+
+  pwd.classList.remove('input-error', 'input-valid');
+  if (!hasPasswordValue) {
+    pwd.setCustomValidity(forceMessage ? 'Required' : '');
+    if (forceMessage) pwd.classList.add('input-error');
+  } else if (!allRulesMet) {
+    pwd.setCustomValidity('Password does not meet all listed requirements.');
+    pwd.classList.add('input-error');
+  } else {
+    pwd.setCustomValidity('');
+    pwd.classList.add('input-valid');
+  }
+
+  pwd2.classList.remove('input-error', 'input-valid');
+  if (matchMsg) {
+    matchMsg.textContent = '';
+    matchMsg.classList.remove('password-match-ok', 'password-match-bad');
+  }
+
+  if (!hasConfirmValue) {
+    pwd2.setCustomValidity(forceMessage ? 'Required' : '');
+    if (forceMessage) pwd2.classList.add('input-error');
+  } else if (passwordValue !== confirmValue) {
+    pwd2.setCustomValidity('Passwords do not match.');
+    pwd2.classList.add('input-error');
+    if (matchMsg) {
+      matchMsg.textContent = 'Passwords do not match.';
+      matchMsg.classList.add('password-match-bad');
+    }
+  } else {
+    pwd2.setCustomValidity('');
+    pwd2.classList.add('input-valid');
+    if (matchMsg) {
+      matchMsg.textContent = 'Passwords match!';
+      matchMsg.classList.add('password-match-ok');
+    }
+  }
+
+  return hasPasswordValue && hasConfirmValue && allRulesMet && passwordValue === confirmValue;
+}
+
+// CHANGE: Initializes the enhanced password validation display. It keeps the
+// existing live-validation behavior but routes it through the checklist and
+// inline match message instead of the previous single-line error message.
+function initPasswordMatch() {
+  var pwd  = document.getElementById('password');
+  var pwd2 = document.getElementById('password2');
+  if (!pwd || !pwd2) return;
+
+  function runPasswordValidation() {
+    validatePasswordPair(false);
+  }
+
+  function runPasswordValidationWithMessages() {
+    validatePasswordPair(true);
+  }
+
+  pwd.addEventListener('input', runPasswordValidation);
+  pwd2.addEventListener('input', runPasswordValidation);
+  pwd.addEventListener('blur', runPasswordValidationWithMessages);
+  pwd2.addEventListener('blur', runPasswordValidationWithMessages);
+  validatePasswordPair(false);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -321,6 +439,8 @@ function initDOBField() {
   dob.addEventListener('change', validateDOB);
   dob.addEventListener('blur',   validateDOB);
 }
+
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SIGNATURE DATE FIELD — date type, not in future
