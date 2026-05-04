@@ -286,3 +286,100 @@ input[type="range"]::-moz-range-thumb {
   cursor: pointer;
   border: 2px solid #fff;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   COOKIE-BASED USER RECOGNITION MODAL STYLES
+   Added styles for the full-screen recognition modal. These styles preserve the
+   modal appearance while keeping the feature visually separate from existing CSS.
+   ───────────────────────────────────────────────────────────────────────────── */
+.bbhc-cookie-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(10, 24, 38, 0.78);
+  backdrop-filter: blur(3px);
+}
+
+.bbhc-cookie-modal {
+  width: min(92vw, 560px);
+  background: #ffffff;
+  border: 1px solid #cfe0f7;
+  border-radius: 18px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+  padding: 26px;
+  color: #1f2a37;
+}
+
+.bbhc-cookie-modal h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #123a5c;
+}
+
+.bbhc-cookie-modal p {
+  margin: 0 0 16px 0;
+}
+
+.bbhc-cookie-modal-row {
+  margin: 14px 0;
+}
+
+.bbhc-cookie-modal-row label {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: #1b3550;
+}
+
+.bbhc-cookie-modal-row input {
+  width: 100%;
+  box-sizing: border-box;
+  max-width: none;
+  padding: 10px 12px;
+  border: 1px solid #b9cbe6;
+  border-radius: 10px;
+  font: inherit;
+}
+
+.bbhc-cookie-modal-error {
+  min-height: 1.25em;
+  margin-top: 5px;
+  color: #b42318;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.bbhc-cookie-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.bbhc-cookie-modal-actions button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.bbhc-cookie-modal-actions .primary {
+  background: #1c6ea4;
+  color: #ffffff;
+}
+
+.bbhc-cookie-modal-actions .secondary {
+  background: #e7eef8;
+  color: #123a5c;
+  border: 1px solid #cfe0f7;
+}
+
+body.bbhc-cookie-modal-open {
+  overflow: hidden;
+}

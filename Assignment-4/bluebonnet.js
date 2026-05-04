@@ -1817,3 +1817,300 @@ document.addEventListener("DOMContentLoaded", function () {
   // Location lookup: asks for permission, gets lat/lon, then reverse-geocodes it
   updateHeaderLocation();
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// COOKIE-BASED USER RECOGNITION FEATURE
+// This section adds cookie-based first/last name recognition without changing the
+// existing validation functions. The modal only displays on index.html, where the
+// first_name and last_name fields exist, so page-to-page navigation doesn't
+// trigger the recognition overlay or delays the user on later form steps.
+// ─────────────────────────────────────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  var COOKIE_NAME = 'bbhc_user_recognition';
+  var COOKIE_DAYS = 180;
+  var AUTO_DISMISS_MS = 5000;
+
+  // Stores the recognized user object in a browser cookie for future visits.
+  // The broader workflow uses this cookie to decide which modal to show on index.html.
+  function setRecognitionCookie(value) {
+    var expires = new Date(Date.now() + COOKIE_DAYS * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = COOKIE_NAME + '=' + encodeURIComponent(JSON.stringify(value)) + '; expires=' + expires + '; path=/; SameSite=Lax';
+  }
+
+  // Reads and parses the recognition cookie. If the cookie is missing or damaged,
+  // the broader workflow treats the visitor as a first-time user.
+  function getRecognitionCookie() {
+    var parts = document.cookie ? document.cookie.split('; ') : [];
+    for (var i = 0; i < parts.length; i++) {
+      var eq = parts[i].indexOf('=');
+      var name = eq > -1 ? parts[i].slice(0, eq) : parts[i];
+      if (name === COOKIE_NAME) {
+        try { return JSON.parse(decodeURIComponent(parts[i].slice(eq + 1))); }
+        catch (e) { return null; }
+      }
+    }
+    return null;
+  }
+
+  // Normalizes spacing around a name value before validation, storage, or display.
+  // This keeps cookie values and form values consistent across visits.
+  function normalizeRecognitionName(value) {
+    return String(value || '').replace(/\s+/g, ' ').trim();
+  }
+
+  // Provides a fallback first/last name validator that mirrors the rules in
+  // validateByName. This only runs if validateByName is unavailable for any reason.
+  function fallbackRecognitionNameError(fieldName, value) {
+    var v = normalizeRecognitionName(value);
+    if (fieldName === 'first_name') {
+      if (!v) return 'Required';
+      if (!/^[A-Za-z'\-]{1,30}$/.test(v)) return 'ERROR: 1–30 letters, apostrophes, and dashes only.';
+      return '';
+    }
+    if (!v) return 'Required';
+    if (!/^[A-Za-z'\-2-5]{1,30}$/.test(v)) return 'ERROR: 1–30 chars; letters, apostrophes, dashes, and numbers 2–5 only.';
+    return '';
+  }
+
+  // Validates modal first/last name inputs using the existing validateByName rules
+  // whenever possible. This keeps the modal aligned with the main form validation.
+  function validateRecognitionModalName(fieldName, value, input) {
+    if (typeof validateByName === 'function') {
+      return validateByName(fieldName, value, input) || '';
+    }
+    return fallbackRecognitionNameError(fieldName, value);
+  }
+
+  // Updates localStorage with the recognized first and last name. The broader form
+  // already uses this storage key, so later pages and review logic stay consistent.
+  function mergeRecognitionNameIntoLocalStorage(firstName, lastName) {
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+    catch (e) { saved = {}; }
+    saved.first_name = firstName;
+    saved.last_name = lastName;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+  }
+
+  // Fires the normal field events after auto-populating names. This allows existing
+  // validation and save-on-change logic to react as if the user typed the values.
+  function dispatchRecognitionFieldEvents(el) {
+    if (!el) return;
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+    el.dispatchEvent(new Event('blur', { bubbles: true }));
+  }
+
+  // Auto-populates the first_name and last_name fields on index.html and mirrors
+  // those values into localStorage for the rest of the multi-page form workflow.
+  function populateRecognitionNameFields(firstName, lastName) {
+    var first = document.getElementById('first_name') || document.querySelector('[name="first_name"]');
+    var last = document.getElementById('last_name') || document.querySelector('[name="last_name"]');
+
+    if (first) {
+      first.value = firstName;
+      dispatchRecognitionFieldEvents(first);
+    }
+    if (last) {
+      last.value = lastName;
+      dispatchRecognitionFieldEvents(last);
+    }
+    mergeRecognitionNameIntoLocalStorage(firstName, lastName);
+  }
+
+  // Saves a recognized user into the cookie and immediately populates the main form.
+  // The submitted flag controls which return-visit modal appears next time.
+  function saveRecognizedUser(firstName, lastName, submitted) {
+    var user = {
+      firstName: normalizeRecognitionName(firstName),
+      lastName: normalizeRecognitionName(lastName),
+      submitted: submitted === true
+    };
+    setRecognitionCookie(user);
+    populateRecognitionNameFields(user.firstName, user.lastName);
+    return user;
+  }
+
+  // Updates only the submitted flag in the recognition cookie. Step 6 calls this
+  // after a valid main-form submit so the next index.html visit shows the Yes/No modal.
+  function updateRecognitionSubmittedFlag(submitted) {
+    var user = getRecognitionCookie();
+    if (!user || !user.firstName || !user.lastName) return;
+    user.submitted = submitted === true;
+    setRecognitionCookie(user);
+  }
+
+  // Builds the full-screen blocking overlay used by all recognition modal states.
+  // The modal appearance is controlled by the appended CSS section in style.css.
+  function createRecognitionOverlay() {
+    var overlay = document.createElement('div');
+    overlay.className = 'bbhc-cookie-modal-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+
+    var modal = document.createElement('div');
+    modal.className = 'bbhc-cookie-modal';
+    overlay.appendChild(modal);
+
+    document.body.appendChild(overlay);
+    document.body.classList.add('bbhc-cookie-modal-open');
+    return { overlay: overlay, modal: modal };
+  }
+
+  // Removes the recognition overlay and restores normal page scrolling.
+  // This is shared by the first-visit and return-visit modal flows.
+  function closeRecognitionOverlay(overlay) {
+    if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    document.body.classList.remove('bbhc-cookie-modal-open');
+  }
+
+  // Displays the first/last-name entry form inside the modal. It is used for first
+  // visits and when a submitted user chooses Yes to fill another form with new names.
+  function showRecognitionNameEntryModal(existingOverlay) {
+    var ui = existingOverlay ? { overlay: existingOverlay, modal: existingOverlay.querySelector('.bbhc-cookie-modal') } : createRecognitionOverlay();
+    ui.modal.innerHTML = '';
+
+    var title = document.createElement('h2');
+    title.textContent = 'Welcome to Bluebonnet Health Clinic';
+    var intro = document.createElement('p');
+    intro.textContent = 'Please enter your first and last name before continuing.';
+
+    var form = document.createElement('form');
+    form.noValidate = true;
+
+    var firstRow = document.createElement('div');
+    firstRow.className = 'bbhc-cookie-modal-row';
+    firstRow.innerHTML = '<label for="bbhc-cookie-first-name">First Name</label><input id="bbhc-cookie-first-name" name="first_name" type="text" maxlength="30" autocomplete="given-name" required><div class="bbhc-cookie-modal-error" aria-live="polite"></div>';
+
+    var lastRow = document.createElement('div');
+    lastRow.className = 'bbhc-cookie-modal-row';
+    lastRow.innerHTML = '<label for="bbhc-cookie-last-name">Last Name</label><input id="bbhc-cookie-last-name" name="last_name" type="text" maxlength="30" autocomplete="family-name" required><div class="bbhc-cookie-modal-error" aria-live="polite"></div>';
+
+    var actions = document.createElement('div');
+    actions.className = 'bbhc-cookie-modal-actions';
+    actions.innerHTML = '<button type="submit" class="primary">Continue</button>';
+
+    form.appendChild(firstRow);
+    form.appendChild(lastRow);
+    form.appendChild(actions);
+    ui.modal.appendChild(title);
+    ui.modal.appendChild(intro);
+    ui.modal.appendChild(form);
+
+    var firstInput = form.querySelector('[name="first_name"]');
+    var lastInput = form.querySelector('[name="last_name"]');
+
+    firstInput.pattern = "^[A-Za-z'\\-]{1,30}$";
+    firstInput.title = '1–30 characters. Letters, apostrophes, and dashes only.';
+    lastInput.pattern = "^[A-Za-z'\\-2-5]{1,30}$";
+    lastInput.title = '1–30 characters. Letters, apostrophes, dashes, and numbers 2–5 only.';
+
+    // Validates one modal field and displays the appropriate inline message.
+    // This helper keeps modal validation behavior similar to the main form fields.
+    function validateOneRecognitionModalInput(input, showMessage) {
+      var err = validateRecognitionModalName(input.name, input.value, input);
+      var errorBox = input.parentNode.querySelector('.bbhc-cookie-modal-error');
+      errorBox.textContent = showMessage ? err : '';
+      input.setCustomValidity(err || '');
+      input.classList.toggle('input-error', !!err && showMessage);
+      input.classList.toggle('input-valid', !err && !!input.value.trim());
+      return !err;
+    }
+
+    [firstInput, lastInput].forEach(function (input) {
+      input.addEventListener('input', function () { validateOneRecognitionModalInput(input, !!input.value); });
+      input.addEventListener('blur', function () { validateOneRecognitionModalInput(input, true); });
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var okFirst = validateOneRecognitionModalInput(firstInput, true);
+      var okLast = validateOneRecognitionModalInput(lastInput, true);
+      if (!okFirst || !okLast) {
+        (okFirst ? lastInput : firstInput).focus();
+        return;
+      }
+      saveRecognizedUser(firstInput.value, lastInput.value, false);
+      closeRecognitionOverlay(ui.overlay);
+    });
+
+    setTimeout(function () { firstInput.focus(); }, 0);
+  }
+
+  // Displays the return-visit message for users who have not submitted the form yet.
+  // It auto-dismisses after five seconds and then fills the stored name into index.html.
+  function showRecognitionWelcomeBackNotSubmitted(user) {
+    var ui = createRecognitionOverlay();
+    ui.modal.innerHTML = '<h2>Welcome back, ' + escapeRecognitionHtml(user.firstName) + ' ' + escapeRecognitionHtml(user.lastName) + '!</h2><p>Your saved name will be added to the form automatically.</p>';
+    setTimeout(function () {
+      populateRecognitionNameFields(user.firstName, user.lastName);
+      closeRecognitionOverlay(ui.overlay);
+    }, AUTO_DISMISS_MS);
+  }
+
+  // Displays the return-visit choice for users who previously submitted the form.
+  // Yes restarts name entry with a not-submitted flag; No keeps and fills the old name.
+  function showRecognitionWelcomeBackSubmitted(user) {
+    var ui = createRecognitionOverlay();
+    ui.modal.innerHTML = '<h2>Welcome back, ' + escapeRecognitionHtml(user.firstName) + ' ' + escapeRecognitionHtml(user.lastName) + '.</h2><p>Ready to fill another form with a different name?</p><div class="bbhc-cookie-modal-actions"><button type="button" class="primary" id="bbhc-cookie-yes">Yes</button><button type="button" class="secondary" id="bbhc-cookie-no">No</button></div>';
+
+    ui.modal.querySelector('#bbhc-cookie-yes').addEventListener('click', function () {
+      showRecognitionNameEntryModal(ui.overlay);
+    });
+
+    ui.modal.querySelector('#bbhc-cookie-no').addEventListener('click', function () {
+      populateRecognitionNameFields(user.firstName, user.lastName);
+      closeRecognitionOverlay(ui.overlay);
+    });
+
+    setTimeout(function () {
+      var noButton = ui.modal.querySelector('#bbhc-cookie-no');
+      if (noButton) noButton.focus();
+    }, 0);
+  }
+
+  // Escapes stored cookie values before placing them in modal HTML.
+  // This prevents names from being interpreted as markup.
+  function escapeRecognitionHtml(value) {
+    return String(value || '').replace(/[&<>'"]/g, function (ch) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[ch];
+    });
+  }
+
+  // Watches the final consent form submit and marks the cookie as submitted only
+  // when existing validation allows the submit event to continue.
+  function hookRecognitionFinalSubmitStatus() {
+    var finalForm = document.getElementById('step6-form');
+    if (!finalForm) return;
+    finalForm.addEventListener('submit', function (e) {
+      if (e.defaultPrevented) return;
+      updateRecognitionSubmittedFlag(true);
+    });
+  }
+
+  // Starts the recognition workflow. The submit-status hook can run on Step 6, but
+  // the visible modal is intentionally limited to index.html where the name fields exist.
+  function initRecognitionFeature() {
+    hookRecognitionFinalSubmitStatus();
+
+    var first = document.getElementById('first_name') || document.querySelector('[name="first_name"]');
+    var last = document.getElementById('last_name') || document.querySelector('[name="last_name"]');
+    if (!first || !last) return;
+
+    var user = getRecognitionCookie();
+    if (!user || !user.firstName || !user.lastName) {
+      showRecognitionNameEntryModal();
+      return;
+    }
+
+    if (user.submitted === true) {
+      showRecognitionWelcomeBackSubmitted(user);
+    } else {
+      showRecognitionWelcomeBackNotSubmitted(user);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', initRecognitionFeature);
+}());
