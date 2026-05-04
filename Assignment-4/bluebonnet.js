@@ -1,28 +1,12 @@
 /**
- * bluebonnet.js  — Version 18
+ * bluebonnet.js  — Version 19
  * Bluebonnet Health Clinic — Patient Registration JavaScript
  * Author: Onyemaechi Onwudiachi
  *
- * Changes in v18:
- *  - Full reactive border feedback (red/green) on ALL required fields
- *  - Complete review-panel validation status for ALL required fields
- *  - Updated field validations per requirements:
- *      First Name (1-30, letters/apostrophes/dashes)
- *      Middle Initial (1 letter, optional)
- *      Last Name (1-30, letters/apostrophes/dashes/numbers 2-5)
- *      DOB (date type, dynamic min/max 120yr cap, no future)
- *      Signature Date (date type, must equal current date)
- *      SSN (password field, masked, 9 digits validated)
- *      Email (strict name@domain.tld)
- *      Phone (000-000-0000 format)
- *      Validate buttons reveal actual submit buttons only when page is error-free
- *      Preferred contact detail field shown dynamically (phone for phone-based, email for online)
- *      Address Line 1 (required, 2-30 chars)
- *      Address Line 2 (optional, 2-30 chars if entered)
- *      City (required, 2-30 chars)
- *      State (populated from external states.js, null default forced)
- *      Zip (5 digits, truncates zip+4 to 5, redisplays)
- *      User ID (5-30 chars, letter-first, no spaces/specials, lowercased on blur)
+ * Changes in v19:
+ *      Added HEADER FUNCTIONS TO DISPLAY DATE AND TIME section
+ *      Added COOKIE-BASED USER RECOGNITION FEATURE section 
+ *      Added API FETCHING FUNCTIONALITY THAT DISPLAYS USERS LOCATION IN HEADER section 
  */
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1703,6 +1687,11 @@ function updateHeaderDateTime() {
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// API FETCHING FUNCTIONALITY THAT DISPLAYS USERS LOCATION IN HEADER
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 // updating location text of page
 function updateHeaderLocation() {
   var locationText = document.getElementById("locationText");
@@ -1752,6 +1741,7 @@ function updateHeaderLocation() {
     }
   );
 }
+
 
 // Fetching using reverse lookup
 async function reverseLookupLocation(latitude, longitude) {
@@ -1805,7 +1795,6 @@ async function reverseLookupLocation(latitude, longitude) {
     locationText.textContent = "Location lookup unavailable";
   }
 }
-
 
 
 document.addEventListener("DOMContentLoaded", function () {
