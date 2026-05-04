@@ -1939,7 +1939,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var COOKIE_NAME = 'bbhc_user_recognition';
   var COOKIE_DAYS = 180;
-  var AUTO_DISMISS_MS = 5000;
+  var AUTO_DISMISS_MS = 2000;
 
   // Stores the recognized user object in a browser cookie for future visits.
   // The broader workflow uses this cookie to decide which modal to show on index.html.
