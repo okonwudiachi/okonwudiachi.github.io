@@ -2223,3 +2223,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.addEventListener('DOMContentLoaded', initRecognitionFeature);
 }());
+/* End of File */
